@@ -22,23 +22,23 @@ public class ApplicationContext : DbContext
     private void SeedData(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Service>().HasData(
-            new Service { Id = 1, Name = "Development" },
-            new Service { Id = 2, Name = "Marketing" },
-            new Service { Id = 3, Name = "Commercial" }
+            new Service { Id = 1, Name = "Development", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+            new Service { Id = 2, Name = "Marketing", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+            new Service { Id = 3, Name = "Commercial", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
         );
 
         modelBuilder.Entity<Site>().HasData(
-            new Site { Id = 1, City = "Paris" },
-            new Site { Id = 2, City = "Nantes" },
-            new Site { Id = 3, City = "Toulouse" },
-            new Site { Id = 4, City = "Nice" },
-            new Site { Id = 5, City = "Lile" }
+            new Site { Id = 1, City = "Paris", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+            new Site { Id = 2, City = "Nantes", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+            new Site { Id = 3, City = "Toulouse", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+            new Site { Id = 4, City = "Nice", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+            new Site { Id = 5, City = "Lile", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
         );
 
         modelBuilder.Entity<Employee>().HasData(
-            new Employee { Id = 1, Firstname = "John", Lastname = "Doe", HomePhone = "0123456789", CellPhone = "0123456789", Email = "john@doe.com", ServiceId = 1, SiteId = 1 },
-            new Employee { Id = 2, Firstname = "Jane", Lastname = "Smith", HomePhone = "9876543210", CellPhone = "9876543210", Email = "jane@smith.com", ServiceId = 2, SiteId = 2 },
-            new Employee { Id = 3, Firstname = "Michael", Lastname = "Johnson", HomePhone = "1234567890", CellPhone = "1234567890", Email = "michael@johnson.com", ServiceId = 3, SiteId = 3 }
+            new Employee { Id = 1, Firstname = "John", Lastname = "Doe", HomePhone = "0123456789", CellPhone = "0123456789", Email = "john@doe.com", ServiceId = 1, SiteId = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+            new Employee { Id = 2, Firstname = "Jane", Lastname = "Smith", HomePhone = "9876543210", CellPhone = "9876543210", Email = "jane@smith.com", ServiceId = 2, SiteId = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+            new Employee { Id = 3, Firstname = "Michael", Lastname = "Johnson", HomePhone = "1234567890", CellPhone = "1234567890", Email = "michael@johnson.com", ServiceId = 3, SiteId = 3, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
         );
     }
 
