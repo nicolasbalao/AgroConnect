@@ -25,6 +25,7 @@ builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 // ----------------- Services -----------------
 builder.Services.AddScoped<ISiteService, SiteService>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
 
 
 
