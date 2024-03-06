@@ -1,4 +1,7 @@
 using api.database;
+using api.Repository;
+using api.Services;
+using cube4api.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +18,19 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
+// ----------------- Repositories -------------
+
+builder.Services.AddScoped<ISiteRepository, SiteRepository>();
+
+// ----------------- Services -----------------
+builder.Services.AddScoped<ISiteService, SiteService>();
+
+
+
 var app = builder.Build();
+
+// ----------------- Middleware -------------
+app.UseMiddleware<ExecptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
