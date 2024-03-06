@@ -28,7 +28,8 @@ public class SiteController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        return await _siteService.CreateSite(createSiteDto);
+        var serviceCreated = await _siteService.CreateSite(createSiteDto);
+        return CreatedAtAction(nameof(GetSite), new { id = serviceCreated.Id }, serviceCreated);
     }
 
     [HttpGet("{id:int}")]
