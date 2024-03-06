@@ -21,6 +21,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 // ----------------- Repositories -------------
 
 builder.Services.AddScoped<ISiteRepository, SiteRepository>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 // ----------------- Services -----------------
 builder.Services.AddScoped<ISiteService, SiteService>();
