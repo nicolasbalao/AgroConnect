@@ -6,10 +6,11 @@ namespace api.Mappers;
 public static class EmployeeMapper
 {
 
-    public static EmployeeDto MapEmployeeToEmployeeDto(Employee employee)
+    public static EmployeeDto ToDto(this Employee employee)
     {
         return new EmployeeDto
         {
+            Id = employee.Id,
             Firstname = employee.Firstname,
             Lastname = employee.Lastname,
             HomePhone = employee.HomePhone,
@@ -20,7 +21,7 @@ public static class EmployeeMapper
         };
     }
 
-    public static Employee MapCreateEmployeeDtoToEmployee(CreateEmployeeDto createEmployeeDto)
+    public static Employee ToEmployee(this CreateEmployeeDto createEmployeeDto)
     {
         return new Employee
         {
@@ -31,6 +32,21 @@ public static class EmployeeMapper
             Email = createEmployeeDto.Email,
             DepartmentId = createEmployeeDto.DepartmentId,
             SiteId = createEmployeeDto.SiteId
+        };
+    }
+
+    public static Employee ToEmployee(this UpdateEmployeeDto updateEmployeeDto)
+    {
+        return new Employee
+        {
+            Id = updateEmployeeDto.Id,
+            Firstname = updateEmployeeDto.Firstname,
+            Lastname = updateEmployeeDto.Lastname,
+            HomePhone = updateEmployeeDto.HomePhone,
+            CellPhone = updateEmployeeDto.CellPhone,
+            Email = updateEmployeeDto.Email,
+            DepartmentId = updateEmployeeDto.DepartmentId,
+            SiteId = updateEmployeeDto.SiteId
         };
     }
 
