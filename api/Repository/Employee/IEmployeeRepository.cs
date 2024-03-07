@@ -5,6 +5,7 @@ namespace api.Repository;
 public interface IEmployeeRepository
 {
     Task<List<Employee>> GetEmployees();
+    Task<List<Employee>> GetEmployees(string search);
     Task<Employee?> GetEmployee(int id);
     Task<Employee> CreateEmployee(Employee employee);
     Task<Employee> UpdateEmployee(Employee employee);
