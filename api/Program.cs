@@ -21,11 +21,11 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 // ----------------- Repositories -------------
 
 builder.Services.AddScoped<ISiteRepository, SiteRepository>();
-builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
 // ----------------- Services -----------------
 builder.Services.AddScoped<ISiteService, SiteService>();
-builder.Services.AddScoped<IServiceService, ServiceService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 
 

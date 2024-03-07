@@ -1,5 +1,5 @@
 namespace Contracts.Dtos;
-public class UpdateServiceDto : CreateServiceDto
+public class UpdateDepartmentDto : CreateDepartmentDto
 {
     public int Id { get; set; }
 }

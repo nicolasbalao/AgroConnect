@@ -16,10 +16,10 @@ public class Employee : BaseModel
 
     public string Email { get; set; }
 
-    [ForeignKey(nameof(Service))]
-    public int ServiceId { get; set; }
+    [ForeignKey(nameof(Department))]
+    public int DepartmentId { get; set; }
 
-    public virtual Service Service { get; set; }
+    public virtual Department Department { get; set; }
 
     [ForeignKey(nameof(Site))]
     public int SiteId { get; set; }
