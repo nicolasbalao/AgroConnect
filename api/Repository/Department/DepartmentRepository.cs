@@ -55,4 +55,9 @@ public class DepartmentRepository : IDepartmentRepository
     {
         return await _context.Employees.AnyAsync(x => x.DepartmentId == id);
     }
+
+    public async Task<bool> DepartmentExists(int id)
+    {
+        return await _context.Departments.AnyAsync(x => x.Id == id);
+    }
 }
