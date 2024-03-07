@@ -1,5 +1,5 @@
 namespace api.Model;
-public class Service : BaseModel
+public class Department : BaseModel
 {
     public string Name { get; set; }
 }
