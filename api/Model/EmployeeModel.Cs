@@ -9,10 +9,10 @@ public class Employee : BaseModel
     public string Lastname { get; set; } = string.Empty;
 
     [Column(TypeName = "varchar(20)")]
-    public string HomePhone { get; set; } = string.Empty;
+    public string? HomePhone { get; set; } = string.Empty;
 
     [Column(TypeName = "varchar(20)")]
-    public string? CellPhone { get; set; }
+    public string CellPhone { get; set; } = string.Empty;
 
     public string Email { get; set; } = string.Empty;
 
