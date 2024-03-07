@@ -58,4 +58,9 @@ public class SiteRepository : ISiteRepository
         return await _context.Employees.AnyAsync(x => x.SiteId == id);
     }
 
+    public Task<bool> SiteExists(int id)
+    {
+        return _context.Sites.AnyAsync(x => x.Id == id);
+    }
+
 }

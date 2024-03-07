@@ -10,5 +10,6 @@ namespace api.Repository
         Task<Site> UpdateSite(Site site);
         Task<bool> DeleteSite(int id);
         Task<bool> SiteHaveEmployees(int id);
+        Task<bool> SiteExists(int id);
     }
 }
