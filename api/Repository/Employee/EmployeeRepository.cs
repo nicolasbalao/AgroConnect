@@ -1,4 +1,5 @@
 using api.database;
+using api.Decorators;
 using api.Model;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,14 +14,25 @@ public class EmployeeRepository : IEmployeeRepository
         _context = context;
     }
 
-    public async Task<List<Employee>> GetEmployees()
+    public async Task<List<Employee>> GetEmployees(PaginationParams paginationParams)
     {
-        return await _context.Employees.Include(e => e.Department).Include(e => e.Site).ToListAsync();
+        return await _context.Employees.Include(e => e.Department)
+            .Include(e => e.Site)
+            .Skip(paginationParams.GetOffset())
+            .Take(paginationParams.GetLimit())
+            .ToListAsync();
     }
 
-    public async Task<List<Employee>> GetEmployees(string search)
+    public async Task<List<Employee>> GetEmployees(PaginationParams paginationParams, string search)
     {
-        return await _context.Employees.Include(e => e.Department).Include(e => e.Site).Include(e => e.Department).Where(e => e.Firstname.Contains(search) || e.Lastname.Contains(search) || e.Department.Name.Contains(search) || e.Site.City.Contains(search)).ToListAsync();
+        return await _context.Employees.Include(e => e.Department)
+            .Include(e => e.Site)
+            .Include(e => e.Department)
+            .Where(e => e.Firstname.Contains(search) || e.Lastname.Contains(search) || e.Department.Name.Contains(search) || e.Site.City.Contains(search))
+            .Skip(paginationParams.GetOffset())
+            .Take(paginationParams.GetLimit())
+            .ToListAsync();
+
     }
     public async Task<Employee> CreateEmployee(Employee employee)
     {
@@ -61,5 +73,9 @@ public class EmployeeRepository : IEmployeeRepository
         return true;
     }
 
+    public async Task<int> EmployeeCount()
+    {
+        return await _context.Employees.CountAsync();
+    }
 
 }

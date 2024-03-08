@@ -1,4 +1,5 @@
 
+using api.Decorators;
 using api.Services;
 using Contracts.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +20,9 @@ public class EmployeeController : ControllerBase
 
 
     [HttpGet]
-    public async Task<ActionResult<List<EmployeeDto>>> GetEmployees([FromQuery] string? search = null)
+    public async Task<ActionResult<PaginatedResponse<EmployeeDto>>> GetEmployees([FromQuery] PaginationParams paginationParams, [FromQuery] string? search = null)
     {
-        return await _employeeService.GetEmployees(search);
+        return await _employeeService.GetEmployees(paginationParams, search);
     }
 
     [HttpPost]

@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using api.CustomException;
+using api.Decorators;
 using api.Mappers;
 using api.Model;
 using api.Repository;
@@ -21,10 +22,25 @@ public class EmployeeService : IEmployeeService
         _departmentRepository = departmentRepository;
     }
 
-    public async Task<List<EmployeeDto>> GetEmployees(string? search)
+    public async Task<PaginatedResponse<EmployeeDto>> GetEmployees(PaginationParams paginationParams, string? search)
     {
-        var employees = await _employeeRepository.GetEmployees(search);
-        return employees.Select(e => e.ToDto()).ToList();
+        List<Employee> employees;
+
+        if (search is null)
+            employees = await _employeeRepository.GetEmployees(paginationParams);
+        else
+            employees = await _employeeRepository.GetEmployees(paginationParams, search);
+
+        int TotalItems = await _employeeRepository.EmployeeCount();
+
+        return new PaginatedResponse<EmployeeDto>
+        {
+            Items = employees.Select(e => e.ToDto()).ToList(),
+            TotalItems = TotalItems,
+            Page = paginationParams.Page,
+            Size = paginationParams.Size
+        };
+
 
     }
 
