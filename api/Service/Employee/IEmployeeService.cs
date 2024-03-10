@@ -9,6 +9,7 @@ namespace api.Services
         Task<EmployeeDto> GetEmployee(int id);
         Task<EmployeeDto> CreateEmployee(CreateEmployeeDto createEmployeeDto);
         Task<EmployeeDto> UpdateEmployee(UpdateEmployeeDto updateEmployeeDto);
+        Task LockEmployeeForModification(int id);
         Task DeleteEmployee(int id);
     }
 }

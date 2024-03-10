@@ -91,4 +91,17 @@ public class EmployeeService : IEmployeeService
 
     }
 
+    public async Task LockEmployeeForModification(int id)
+    {
+        var employee = await _employeeRepository.GetEmployee(id);
+
+        if (employee is null)
+            throw new NotFoundExecption("Employee not found");
+
+        if (employee.IsModifiable == false)
+            throw new BadRequestException("Employee is already locked for modification");
+
+        // TODO: If throw new is like return
+        await _employeeRepository.LockEmployeeForModification(employee);
+    }
 }

@@ -59,4 +59,12 @@ public class EmployeeController : ControllerBase
         return Ok();
     }
 
+    [HttpPut("{id:int}/lock")]
+    public async Task<ActionResult> LockEmployeeForModification(int id)
+    {
+        await _employeeService.LockEmployeeForModification(id);
+        return Ok();
+    }
+
+
 }

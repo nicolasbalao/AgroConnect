@@ -16,6 +16,8 @@ public class Employee : BaseModel
 
     public string Email { get; set; } = string.Empty;
 
+    public bool IsModifiable { get; set; } = true;
+
     [ForeignKey(nameof(Department))]
     public int DepartmentId { get; set; }
 

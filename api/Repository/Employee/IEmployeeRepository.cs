@@ -10,6 +10,8 @@ public interface IEmployeeRepository
     Task<Employee?> GetEmployee(int id);
     Task<Employee> CreateEmployee(Employee employee);
     Task<Employee> UpdateEmployee(Employee employee);
+
+    Task LockEmployeeForModification(Employee employee);
     Task<bool> DeleteEmployee(int id);
     Task<int> EmployeeCount();
 }

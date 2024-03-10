@@ -78,4 +78,9 @@ public class EmployeeRepository : IEmployeeRepository
         return await _context.Employees.CountAsync();
     }
 
+    public async Task LockEmployeeForModification(Employee employee)
+    {
+        _context.Entry(employee).Entity.IsModifiable = false;
+        await _context.SaveChangesAsync();
+    }
 }
