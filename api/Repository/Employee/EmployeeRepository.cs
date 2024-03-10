@@ -84,12 +84,11 @@ public class EmployeeRepository : IEmployeeRepository
         employee.LockedBy = lockedBy;
         await _context.SaveChangesAsync();
     }
-
-    public async Task<bool> IsEmployeeLockedForModification(int id)
+    public async Task<bool> IsEmployeeLockedByAnotherAdmin(int id, string lockedBy)
     {
         var employee = await _context.Employees.FindAsync(id);
-
-        return employee!.IsLocked;
+        Detach(employee!);
+        return employee!.IsLocked && employee.LockedBy != lockedBy;
     }
 
     public async Task UnlockEmployeeForModification(int id)
@@ -106,4 +105,11 @@ public class EmployeeRepository : IEmployeeRepository
         var employee = await _context.Employees.FindAsync(id);
         return employee!.LockedBy!;
     }
+
+    public void Detach(Employee employee)
+    {
+        _context.Entry(employee).State = EntityState.Detached;
+    }
+
+
 }

@@ -65,10 +65,13 @@ public class EmployeeService : IEmployeeService
 
 
 
-    public async Task<EmployeeDto> UpdateEmployee(UpdateEmployeeDto updateEmployeeDto)
+    public async Task<EmployeeDto> UpdateEmployee(UpdateEmployeeDto updateEmployeeDto, string lockedBy)
     {
 
-        await EnsureEmployeeModifiability(updateEmployeeDto.Id);
+        if (await _employeeRepository.IsEmployeeLockedByAnotherAdmin(updateEmployeeDto.Id, lockedBy))
+            throw new BadRequestException("Employee is locked by another admin");
+
+
         await HandleRelationExist(updateEmployeeDto);
 
         var employee = updateEmployeeDto.ToEmployee();
@@ -79,13 +82,7 @@ public class EmployeeService : IEmployeeService
         return updatedEmployee.ToDto();
     }
 
-    private async Task EnsureEmployeeModifiability(int id)
-    {
-        var isLocked = await _employeeRepository.IsEmployeeLockedForModification(id);
 
-        if (isLocked)
-            throw new BadRequestException("Employee is locked for modification");
-    }
 
     private async Task HandleRelationExist(CreateEmployeeDto createEmployeeDto)
     {
@@ -117,4 +114,5 @@ public class EmployeeService : IEmployeeService
         // TODO: If throw new is like return
         await _employeeRepository.LockEmployeeForModification(employee, lockedBy);
     }
+
 }

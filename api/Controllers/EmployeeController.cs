@@ -49,7 +49,7 @@ public class EmployeeController : ControllerBase
         if (id != updateEmployeeDto.Id)
             return BadRequest("Id in the body does not match the id in the route");
 
-        return await _employeeService.UpdateEmployee(updateEmployeeDto);
+        return await _employeeService.UpdateEmployee(updateEmployeeDto, "2");
     }
 
     [HttpDelete("{id:int}")]
