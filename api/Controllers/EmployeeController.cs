@@ -1,7 +1,9 @@
 
 using api.Decorators;
+using api.Filters;
 using api.Services;
 using Contracts.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
@@ -25,6 +27,7 @@ public class EmployeeController : ControllerBase
         return await _employeeService.GetEmployees(paginationParams, search);
     }
 
+    [ServiceFilter(typeof(AdminAuthorize))]
     [HttpPost]
     public async Task<ActionResult<EmployeeDto>> CreateEmployee([FromBody] CreateEmployeeDto createEmployeeDto)
     {
@@ -41,6 +44,7 @@ public class EmployeeController : ControllerBase
         return await _employeeService.GetEmployee(id);
     }
 
+    [ServiceFilter(typeof(AdminAuthorize))]
     [HttpPut("{id:int}")]
     public async Task<ActionResult<EmployeeDto>> UpdateEmployee(int id, [FromBody] UpdateEmployeeDto updateEmployeeDto)
     {
@@ -52,6 +56,7 @@ public class EmployeeController : ControllerBase
         return await _employeeService.UpdateEmployee(updateEmployeeDto, "2");
     }
 
+    [ServiceFilter(typeof(AdminAuthorize))]
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteEmployee(int id)
     {
@@ -59,6 +64,7 @@ public class EmployeeController : ControllerBase
         return Ok();
     }
 
+    [ServiceFilter(typeof(AdminAuthorize))]
     [HttpPut("{id:int}/lock")]
     public async Task<ActionResult> LockEmployeeForModification(int id)
     {

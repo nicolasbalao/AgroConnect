@@ -25,3 +25,4 @@ _ReSharper*
 
 # Ignore Visual Studio Code files
 .vscode/
+api/appsettings.Development.json

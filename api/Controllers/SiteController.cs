@@ -1,3 +1,4 @@
+using api.Filters;
 using api.Services;
 using Contracts.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ namespace api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]s")]
+[ServiceFilter(typeof(AdminAuthorize))]
 public class SiteController : ControllerBase
 {
 

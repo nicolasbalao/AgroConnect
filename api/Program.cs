@@ -1,8 +1,10 @@
 using api.database;
+using api.Filters;
 using api.Repository;
 using api.Services;
 using cube4api.Middleware;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,21 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<ISiteService, SiteService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
+builder.Services.AddSingleton<IAuthTokenService, AuthTokenService>(provider =>
+{
+    var config = provider.GetRequiredService<IConfiguration>();
+    var secret = config.GetSection("Env").GetValue<string>("SECRET");
+    if (secret == null)
+    {
+        throw new Exception("Secret is not defined in the configuration file");
+    }
+    return new AuthTokenService(secret);
+
+});
+
+builder.Services.AddSingleton<AdminAuthorize>();
+
 
 
 
