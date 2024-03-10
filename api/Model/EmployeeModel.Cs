@@ -18,7 +18,9 @@ public class Employee : BaseModel
 
     public bool IsLocked { get; set; } = false;
 
-    public string? LockedBy { get; set; } = string.Empty;
+    public string? LockedBy { get; set; }
+
+    public DateTime? LockedAt { get; set; }
 
     [ForeignKey(nameof(Department))]
     public int DepartmentId { get; set; }

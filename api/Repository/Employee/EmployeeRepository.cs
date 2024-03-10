@@ -82,6 +82,7 @@ public class EmployeeRepository : IEmployeeRepository
     {
         employee.IsLocked = true;
         employee.LockedBy = lockedBy;
+        employee.LockedAt = DateTime.Now;
         await _context.SaveChangesAsync();
     }
     public async Task<bool> IsEmployeeLockedByAnotherAdmin(int id, string lockedBy)
@@ -96,6 +97,7 @@ public class EmployeeRepository : IEmployeeRepository
         var employee = await _context.Employees.FindAsync(id);
         employee!.IsLocked = false;
         employee.LockedBy = null;
+        employee.LockedAt = null;
         await _context.SaveChangesAsync();
 
     }

@@ -12,8 +12,8 @@ using api.database;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240310133057_LockEmployee")]
-    partial class LockEmployee
+    [Migration("20240310143635_EmployeeLockingSystem")]
+    partial class EmployeeLockingSystem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,23 +51,23 @@ namespace api.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2483),
+                            CreatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7307),
                             Name = "Development",
-                            UpdatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2526)
+                            UpdatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7358)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2531),
+                            CreatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7364),
                             Name = "Marketing",
-                            UpdatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2532)
+                            UpdatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7366)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2534),
+                            CreatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7367),
                             Name = "Commercial",
-                            UpdatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2535)
+                            UpdatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7368)
                         });
                 });
 
@@ -107,6 +107,9 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime?>("LockedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("LockedBy")
                         .HasColumnType("longtext");
 
@@ -129,46 +132,43 @@ namespace api.Migrations
                         {
                             Id = 1,
                             CellPhone = "0123456789",
-                            CreatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2692),
+                            CreatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7506),
                             DepartmentId = 1,
                             Email = "john@doe.com",
                             Firstname = "John",
                             HomePhone = "0123456789",
                             IsLocked = false,
                             Lastname = "Doe",
-                            LockedBy = "",
                             SiteId = 1,
-                            UpdatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2693)
+                            UpdatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7507)
                         },
                         new
                         {
                             Id = 2,
                             CellPhone = "9876543210",
-                            CreatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2696),
+                            CreatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7510),
                             DepartmentId = 2,
                             Email = "jane@smith.com",
                             Firstname = "Jane",
                             HomePhone = "9876543210",
                             IsLocked = false,
                             Lastname = "Smith",
-                            LockedBy = "",
                             SiteId = 2,
-                            UpdatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2697)
+                            UpdatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7511)
                         },
                         new
                         {
                             Id = 3,
                             CellPhone = "1234567890",
-                            CreatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2699),
+                            CreatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7514),
                             DepartmentId = 3,
                             Email = "michael@johnson.com",
                             Firstname = "Michael",
                             HomePhone = "1234567890",
                             IsLocked = false,
                             Lastname = "Johnson",
-                            LockedBy = "",
                             SiteId = 3,
-                            UpdatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2700)
+                            UpdatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7515)
                         });
                 });
 
@@ -199,36 +199,36 @@ namespace api.Migrations
                         {
                             Id = 1,
                             City = "Paris",
-                            CreatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2659),
-                            UpdatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2662)
+                            CreatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7473),
+                            UpdatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7475)
                         },
                         new
                         {
                             Id = 2,
                             City = "Nantes",
-                            CreatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2663),
-                            UpdatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2664)
+                            CreatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7477),
+                            UpdatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7478)
                         },
                         new
                         {
                             Id = 3,
                             City = "Toulouse",
-                            CreatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2666),
-                            UpdatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2667)
+                            CreatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7479),
+                            UpdatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7480)
                         },
                         new
                         {
                             Id = 4,
                             City = "Nice",
-                            CreatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2668),
-                            UpdatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2669)
+                            CreatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7482),
+                            UpdatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7483)
                         },
                         new
                         {
                             Id = 5,
                             City = "Lile",
-                            CreatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2671),
-                            UpdatedAt = new DateTime(2024, 3, 10, 14, 30, 57, 613, DateTimeKind.Local).AddTicks(2672)
+                            CreatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7484),
+                            UpdatedAt = new DateTime(2024, 3, 10, 15, 36, 35, 652, DateTimeKind.Local).AddTicks(7485)
                         });
                 });
 

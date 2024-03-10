@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using api.CustomException;
 using api.Decorators;
 using api.Mappers;
@@ -12,14 +11,15 @@ public class EmployeeService : IEmployeeService
 {
     private readonly IEmployeeRepository _employeeRepository;
     private readonly ISiteRepository _siteRepository;
-
     private readonly IDepartmentRepository _departmentRepository;
+    private readonly IConfiguration _configuration;
 
-    public EmployeeService(IEmployeeRepository employeeRepository, ISiteRepository siteRepository, IDepartmentRepository departmentRepository)
+    public EmployeeService(IEmployeeRepository employeeRepository, ISiteRepository siteRepository, IDepartmentRepository departmentRepository, IConfiguration configuration)
     {
         _employeeRepository = employeeRepository;
         _siteRepository = siteRepository;
         _departmentRepository = departmentRepository;
+        _configuration = configuration;
     }
 
     public async Task<PaginatedResponse<EmployeeDto>> GetEmployees(PaginationParams paginationParams, string? search)
@@ -108,11 +108,28 @@ public class EmployeeService : IEmployeeService
         if (employee is null)
             throw new NotFoundExecption("Employee not found");
 
-        if (employee.IsLocked)
+
+        if (employee.IsLocked && !IsPreviousLockExpired(employee))
             throw new BadRequestException("Employee is already locked for modification");
 
         // TODO: If throw new is like return
         await _employeeRepository.LockEmployeeForModification(employee, lockedBy);
     }
 
+    private bool IsPreviousLockExpired(Employee employee)
+    {
+        var lockTimeout = _configuration.GetSection("Env").GetValue<int>("LockTimeoutMinute");
+
+        if (lockTimeout == 0)
+            throw new BadRequestException("LockTimeoutMinute is not set");
+
+        if (employee.LockedAt is null)
+            return true;
+
+        var employeeLockTime = employee.LockedAt.Value.AddMinutes(lockTimeout);
+
+        if (employeeLockTime < DateTime.Now)
+            return true;
+        return false;
+    }
 }
