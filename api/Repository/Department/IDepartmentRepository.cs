@@ -10,4 +10,6 @@ public interface IDepartmentRepository
     Task<Department> UpdateDepartment(Department department);
     Task<bool> DeleteDepartment(int id);
     Task<bool> DepartmentHaveEmployees(int id);
+
+    Task<bool> DepartmentExists(int id);
 }
