@@ -10,6 +10,11 @@ public interface IEmployeeRepository
     Task<Employee?> GetEmployee(int id);
     Task<Employee> CreateEmployee(Employee employee);
     Task<Employee> UpdateEmployee(Employee employee);
+    Task LockEmployeeForModification(Employee employee, string lockedBy);
+    Task<bool> IsEmployeeLockedByAnotherAdmin(int id, string lockedBy);
+    Task UnlockEmployeeForModification(int id);
     Task<bool> DeleteEmployee(int id);
     Task<int> EmployeeCount();
+
+    void Detach(Employee employee);
 }

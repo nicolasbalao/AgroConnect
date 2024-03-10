@@ -49,7 +49,7 @@ public class EmployeeController : ControllerBase
         if (id != updateEmployeeDto.Id)
             return BadRequest("Id in the body does not match the id in the route");
 
-        return await _employeeService.UpdateEmployee(updateEmployeeDto);
+        return await _employeeService.UpdateEmployee(updateEmployeeDto, "2");
     }
 
     [HttpDelete("{id:int}")]
@@ -58,5 +58,14 @@ public class EmployeeController : ControllerBase
         await _employeeService.DeleteEmployee(id);
         return Ok();
     }
+
+    [HttpPut("{id:int}/lock")]
+    public async Task<ActionResult> LockEmployeeForModification(int id)
+    {
+        string lockedBy = "1";
+        await _employeeService.LockEmployeeForModification(id, lockedBy);
+        return Ok();
+    }
+
 
 }

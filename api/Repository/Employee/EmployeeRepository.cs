@@ -78,4 +78,40 @@ public class EmployeeRepository : IEmployeeRepository
         return await _context.Employees.CountAsync();
     }
 
+    public async Task LockEmployeeForModification(Employee employee, string lockedBy)
+    {
+        employee.IsLocked = true;
+        employee.LockedBy = lockedBy;
+        employee.LockedAt = DateTime.Now;
+        await _context.SaveChangesAsync();
+    }
+    public async Task<bool> IsEmployeeLockedByAnotherAdmin(int id, string lockedBy)
+    {
+        var employee = await _context.Employees.FindAsync(id);
+        Detach(employee!);
+        return employee!.IsLocked && employee.LockedBy != lockedBy;
+    }
+
+    public async Task UnlockEmployeeForModification(int id)
+    {
+        var employee = await _context.Employees.FindAsync(id);
+        employee!.IsLocked = false;
+        employee.LockedBy = null;
+        employee.LockedAt = null;
+        await _context.SaveChangesAsync();
+
+    }
+
+    public async Task<string> GetLockedBy(int id)
+    {
+        var employee = await _context.Employees.FindAsync(id);
+        return employee!.LockedBy!;
+    }
+
+    public void Detach(Employee employee)
+    {
+        _context.Entry(employee).State = EntityState.Detached;
+    }
+
+
 }
