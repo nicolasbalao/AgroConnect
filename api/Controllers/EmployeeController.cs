@@ -62,7 +62,8 @@ public class EmployeeController : ControllerBase
     [HttpPut("{id:int}/lock")]
     public async Task<ActionResult> LockEmployeeForModification(int id)
     {
-        await _employeeService.LockEmployeeForModification(id);
+        string lockedBy = "1";
+        await _employeeService.LockEmployeeForModification(id, lockedBy);
         return Ok();
     }
 

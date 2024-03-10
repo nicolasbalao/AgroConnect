@@ -68,10 +68,23 @@ public class EmployeeService : IEmployeeService
     public async Task<EmployeeDto> UpdateEmployee(UpdateEmployeeDto updateEmployeeDto)
     {
 
+        await EnsureEmployeeModifiability(updateEmployeeDto.Id);
         await HandleRelationExist(updateEmployeeDto);
+
         var employee = updateEmployeeDto.ToEmployee();
         var updatedEmployee = await _employeeRepository.UpdateEmployee(employee);
+
+        await _employeeRepository.UnlockEmployeeForModification(updateEmployeeDto.Id);
+
         return updatedEmployee.ToDto();
+    }
+
+    private async Task EnsureEmployeeModifiability(int id)
+    {
+        var isLocked = await _employeeRepository.IsEmployeeLockedForModification(id);
+
+        if (isLocked)
+            throw new BadRequestException("Employee is locked for modification");
     }
 
     private async Task HandleRelationExist(CreateEmployeeDto createEmployeeDto)
@@ -91,17 +104,17 @@ public class EmployeeService : IEmployeeService
 
     }
 
-    public async Task LockEmployeeForModification(int id)
+    public async Task LockEmployeeForModification(int id, string lockedBy)
     {
         var employee = await _employeeRepository.GetEmployee(id);
 
         if (employee is null)
             throw new NotFoundExecption("Employee not found");
 
-        if (employee.IsModifiable == false)
+        if (employee.IsLocked)
             throw new BadRequestException("Employee is already locked for modification");
 
         // TODO: If throw new is like return
-        await _employeeRepository.LockEmployeeForModification(employee);
+        await _employeeRepository.LockEmployeeForModification(employee, lockedBy);
     }
 }

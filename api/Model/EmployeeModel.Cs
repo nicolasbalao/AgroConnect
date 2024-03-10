@@ -16,7 +16,9 @@ public class Employee : BaseModel
 
     public string Email { get; set; } = string.Empty;
 
-    public bool IsModifiable { get; set; } = true;
+    public bool IsLocked { get; set; } = false;
+
+    public string? LockedBy { get; set; } = string.Empty;
 
     [ForeignKey(nameof(Department))]
     public int DepartmentId { get; set; }
