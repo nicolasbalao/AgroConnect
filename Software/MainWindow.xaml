@@ -14,8 +14,24 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         
         >
-    <Grid>
-        <Button>CC</Button>
+    <Grid Margin="10px">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Column="0" >
+            <Button Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigateCommand}" CommandParameter="Sites">Sites</Button>
+            <Button Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigateCommand}" CommandParameter="Departments">Departments</Button>
+            <Button Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigateCommand}" CommandParameter="Employees" >Employee</Button>
+        </StackPanel>
+
+
+        <Grid Grid.Column="1">
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"></Frame>
+            
+        </Grid>
+
     </Grid>
 
 </Window>
