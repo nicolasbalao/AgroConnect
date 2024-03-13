@@ -1,4 +1,6 @@
 ﻿using System.Windows.Input;
+using Contracts.Dtos;
+using Software.Services;
 using Software.Views;
 
 namespace Software.ViewModels
@@ -8,10 +10,12 @@ namespace Software.ViewModels
 
         public ICommand NavigateCommand { get; }
 
-        public MainViewModel()
+        public  MainViewModel()
         {
             NavigateCommand = new RelayCommand<string>(Navigate);
         }
+
+        
 
         public void Navigate(string section)
         {
