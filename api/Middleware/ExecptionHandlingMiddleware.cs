@@ -44,6 +44,11 @@ public class ExecptionMiddleware
             message = exception.Message;
             status = HttpStatusCode.NotFound;
         }
+        else if (exceptionType == typeof(UnauthorizedExecption))
+        {
+            message = exception.Message;
+            status = HttpStatusCode.Unauthorized;
+        }
         else
         {
             status = HttpStatusCode.InternalServerError;
@@ -51,6 +56,7 @@ public class ExecptionMiddleware
             // if (env.IsEnvironment("Development"))
             //     stackTrace = exception.StackTrace;
         }
+       
 
         var result = JsonSerializer.Serialize(new { error = message, stackTrace });
         context.Response.ContentType = "application/json";
