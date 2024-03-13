@@ -14,6 +14,11 @@ namespace Software.ViewModels
             _canExecute = canExecute;
         }
 
+        public RelayCommand(Action<T> execute)
+            : this(execute, null)
+        {
+        }
+
         public event EventHandler CanExecuteChanged
         {
             add => CommandManager.RequerySuggested += value;
@@ -27,7 +32,10 @@ namespace Software.ViewModels
 
         public void Execute(object parameter)
         {
-            _execute((T)parameter);
+            if (CanExecute(parameter) && _execute != null)
+            {
+                _execute((T)parameter);
+            }
         }
     }
 }

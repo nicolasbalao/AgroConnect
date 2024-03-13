@@ -12,6 +12,7 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
+        KeyDown="OnKeyPress"
         
         >
     <Grid Margin="10px">
@@ -21,15 +22,14 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Vertical" Grid.Column="0" >
-            <Button Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigateCommand}" CommandParameter="Sites">Sites</Button>
-            <Button Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigateCommand}" CommandParameter="Departments">Departments</Button>
+            <Button Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigateCommand}" CommandParameter="Sites" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" >Sites</Button>
+            <Button Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigateCommand}" CommandParameter="Sites" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" >Departments</Button>
             <Button Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigateCommand}" CommandParameter="Employees" >Employee</Button>
         </StackPanel>
 
 
         <Grid Grid.Column="1">
             <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"></Frame>
-            
         </Grid>
 
 

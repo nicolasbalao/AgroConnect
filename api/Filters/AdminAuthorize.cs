@@ -1,6 +1,7 @@
 using System.Text;
 using api.Services;
 using Microsoft.AspNetCore.Mvc.Filters;
+using api.CustomException;
 
 namespace api.Filters;
 
@@ -20,7 +21,7 @@ public class AdminAuthorize : ActionFilterAttribute
 
         if (bearerToken == null)
         {
-            Unauthorized(context);
+            throw new UnauthorizedExecption("Unauthorized");
             return;
 
         }
@@ -29,7 +30,7 @@ public class AdminAuthorize : ActionFilterAttribute
 
         if (!IsAuthorized(token))
         {
-            Unauthorized(context);
+            throw new UnauthorizedExecption("Unauthorized");
             return;
         }
 
@@ -38,12 +39,6 @@ public class AdminAuthorize : ActionFilterAttribute
         base.OnActionExecuted(context);
     }
 
-
-    private void Unauthorized(ActionExecutedContext context)
-    {
-        context.HttpContext.Response.StatusCode = 401;
-        context.HttpContext.Response.BodyWriter.WriteAsync(new ReadOnlyMemory<byte>(Encoding.UTF8.GetBytes("Unauthorized")));
-    }
 
     private bool IsAuthorized(string token)
     {
