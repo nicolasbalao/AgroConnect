@@ -17,7 +17,6 @@ namespace Software
             var globalStateService = GlobalState.Instance ;
             InitializeComponent();
             DataContext = new MainViewModel(globalStateService);
-            ((MainViewModel)DataContext).NavigateCommand.Execute("Employees");
 
         }
 

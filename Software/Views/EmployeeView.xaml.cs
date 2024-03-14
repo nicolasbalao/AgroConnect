@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Contracts.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,15 @@ namespace Software.Views
         {
             InitializeComponent();
         }
-    }
+
+        public void OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            EmployeeDto currentItem = e.Row.Item as EmployeeDto;
+            if (currentItem.IsLocked) 
+            {
+                e.Cancel = true;
+            }
+        }
+
+   }
 }
