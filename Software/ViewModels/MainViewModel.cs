@@ -66,7 +66,9 @@ namespace Software.ViewModels
                     NavigateTo(new DepartmentView());
                     break;
                 case "Employees":
-                    NavigateTo(new EmployeeView());
+                    EmployeeView employeeView = new EmployeeView();
+                    employeeView.DataContext = new EmployeeViewModel();
+                    NavigateTo(employeeView);
                     break;
                 default:
                     throw new ArgumentException("Invalid destination");

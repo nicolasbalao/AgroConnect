@@ -27,7 +27,7 @@ namespace Software.Services
 
         public  static async Task<T> Get<T>(string url) {
 
-            SetAuthorizationHeaderIfNeeded();
+            //SetAuthorizationHeaderIfNeeded();
 
             var response = await Client.GetAsync(url);
             if (response.IsSuccessStatusCode)
