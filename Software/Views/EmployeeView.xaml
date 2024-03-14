@@ -10,7 +10,7 @@
     <Grid>
         <TextBlock>Employee</TextBlock>
 
-        <DataGrid ItemsSource="{Binding PaginatedEmployees.Items}" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid ItemsSource="{Binding PaginatedEmployees.Items}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Firstname" Binding="{Binding Firstname}"/>
                 <DataGridTextColumn Header="Lastname" Binding="{Binding Lastname}"/>

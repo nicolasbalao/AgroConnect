@@ -43,13 +43,15 @@ namespace Software.Services
                     employeeView.DataContext = new EmployeeViewModel();
                     NavigateTo(employeeView);
                     break;
+                case "EmployeeDetails":
+
                 default:
                     throw new ArgumentException("Invalid destination");
             }
 
         }
 
-        private void NavigateTo(object destination)
+        public void NavigateTo(object destination)
         {
             ((MainWindow)System.Windows.Application.Current.MainWindow).MainFrame.Content = destination;
         }

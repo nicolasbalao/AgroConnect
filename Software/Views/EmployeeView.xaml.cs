@@ -1,4 +1,5 @@
 ﻿using Contracts.Dtos;
+using Software.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,5 +36,25 @@ namespace Software.Views
             }
         }
 
-   }
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+           if(e.AddedItems.Count > 0)
+            {
+
+                EmployeeDto employee = e.AddedItems[0] as EmployeeDto;
+
+                EmployeeViewModel vm = this.DataContext as EmployeeViewModel;
+
+                EmployeeDetailsView employeeDetails = new EmployeeDetailsView();
+                EmployeeDetailsViewModel employeeDetailsVM = new EmployeeDetailsViewModel(employee.Id);
+
+                employeeDetails.DataContext = employeeDetailsVM;
+
+                vm.NavigationService.NavigateTo(employeeDetails);
+
+            } 
+
+        }
+    }
 }

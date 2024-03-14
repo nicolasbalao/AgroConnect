@@ -39,10 +39,12 @@ namespace Software.ViewModels
         }
 
         public GlobalState GlobalState { get; set; }
+        public  NavigationService NavigationService { get; }
 
 
         public EmployeeViewModel() {
 
+            NavigationService = NavigationService.Instance;
             LoadSites();
             LoadDepartments();
             LoadEmployees();
