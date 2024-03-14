@@ -7,7 +7,6 @@ namespace api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]s")]
-[ServiceFilter(typeof(AdminAuthorize))]
 public class DepartmentController : ControllerBase
 {
     private readonly IDepartmentService _departmentService;
@@ -24,6 +23,7 @@ public class DepartmentController : ControllerBase
         return Ok(services);
     }
 
+    [ServiceFilter(typeof(AdminAuthorize))]
     [HttpPost]
     public async Task<IActionResult> CreateDepartment([FromBody] CreateDepartmentDto departmentDto)
     {
@@ -34,6 +34,7 @@ public class DepartmentController : ControllerBase
         return CreatedAtAction(nameof(GetDepartment), new { id = service.Id }, service);
     }
 
+    [ServiceFilter(typeof(AdminAuthorize))]
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetDepartment(int id)
     {
@@ -42,6 +43,7 @@ public class DepartmentController : ControllerBase
     }
 
 
+    [ServiceFilter(typeof(AdminAuthorize))]
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateDepartment(int id, [FromBody] UpdateDepartmentDto updateDepartmentDto)
     {
@@ -54,6 +56,7 @@ public class DepartmentController : ControllerBase
         return Ok(service);
     }
 
+    [ServiceFilter(typeof(AdminAuthorize))]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteDepartment(int id)
     {

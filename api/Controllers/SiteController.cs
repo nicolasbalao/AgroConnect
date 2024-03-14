@@ -7,7 +7,6 @@ namespace api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]s")]
-//[ServiceFilter(typeof(AdminAuthorize))]
 public class SiteController : ControllerBase
 {
 
@@ -24,6 +23,8 @@ public class SiteController : ControllerBase
         return await _siteService.GetSites();
     }
 
+
+    [ServiceFilter(typeof(AdminAuthorize))]
     [HttpPost]
     public async Task<ActionResult<SiteDto>> CreateSite([FromBody] CreateSiteDto createSiteDto)
     {
@@ -34,12 +35,16 @@ public class SiteController : ControllerBase
         return CreatedAtAction(nameof(GetSite), new { id = serviceCreated.Id }, serviceCreated);
     }
 
+
+    [ServiceFilter(typeof(AdminAuthorize))]
     [HttpGet("{id:int}")]
     public async Task<ActionResult<SiteDto>> GetSite(int id)
     {
         return await _siteService.GetSite(id);
     }
 
+
+    [ServiceFilter(typeof(AdminAuthorize))]
     [HttpPut("{id:int}")]
     public async Task<ActionResult<SiteDto>> UpdateSite(int id, [FromBody] UpdateSiteDto updateSiteDto)
     {
@@ -51,6 +56,7 @@ public class SiteController : ControllerBase
         return await _siteService.UpdateSite(updateSiteDto);
     }
 
+    [ServiceFilter(typeof(AdminAuthorize))]
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteSite(int id)
     {
