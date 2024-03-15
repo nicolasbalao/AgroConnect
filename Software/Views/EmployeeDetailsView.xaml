@@ -36,7 +36,7 @@
 
         </StackPanel>
             <Button Grid.Row="9" Content="Toggle Edit" Command="{Binding ToggleEdition}" Visibility="{Binding GlobalStateService.IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <Button Grid.Row="9" Content="Save" Command="{Binding OnSave}" Visibility="{Binding CanEdit, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Button Grid.Row="9" Content="Save" Command="{Binding OnSave}" Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </StackPanel>
 
     </Grid>

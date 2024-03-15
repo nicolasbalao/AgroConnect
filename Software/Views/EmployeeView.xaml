@@ -23,5 +23,8 @@
             
         </DataGrid>
 
+        <Button Command="{Binding CreateEmployeeCMD}" Visibility="{Binding GlobalState.IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}">New</Button>
+
     </Grid>
+
 </UserControl>

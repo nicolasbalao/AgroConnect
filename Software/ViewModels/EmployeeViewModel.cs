@@ -1,5 +1,6 @@
 ﻿using Contracts.Dtos;
 using Software.Services;
+using Software.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,18 +39,34 @@ namespace Software.ViewModels
         
         }
 
-        public GlobalState GlobalState { get; set; }
+        public GlobalState GlobalState { get; set; } = GlobalState.Instance;
+
         public  NavigationService NavigationService { get; }
+
+        public ICommand CreateEmployeeCMD { get; set; }
+
 
 
         public EmployeeViewModel() {
 
             NavigationService = NavigationService.Instance;
+            CreateEmployeeCMD = new RelayCommand<string>(HandleCreateEmploye);
             LoadSites();
             LoadDepartments();
             LoadEmployees();
-            GlobalState = GlobalState.Instance;
         
+        }
+
+        private void HandleCreateEmploye(string _)
+        {
+
+            EmployeeDetailsViewModel vm = new (null);
+            EmployeeDetailsView view = new ();
+
+            view.DataContext = vm;
+
+            NavigationService.NavigateTo(view);
+
         }
 
         
