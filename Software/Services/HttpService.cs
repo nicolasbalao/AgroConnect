@@ -27,7 +27,7 @@ namespace Software.Services
 
         public  static async Task<T> Get<T>(string url) {
 
-            SetAuthorizationHeaderIfNeeded();
+            //SetAuthorizationHeaderIfNeeded();
 
             var response = await Client.GetAsync(url);
             if (response.IsSuccessStatusCode)
@@ -107,9 +107,21 @@ namespace Software.Services
             return false;
         }
 
+        public static async Task<string> LockEmployee(int id)
+        {
+            var url = $"employees/{id}/lock";
+            var response = await Client.PutAsync(url, null);
+            if(response.IsSuccessStatusCode)
+            {
+                return await HandleSuccessfulResponse<string>(response, url);
+            }
+
+            throw new Exception(response.ReasonPhrase);
+        }
+
         private static void SetAuthorizationHeaderIfNeeded()
         {
-            if(AuthToken == null)
+            if(AuthToken != null && Client.DefaultRequestHeaders.Authorization == null)
             {
                 Client.DefaultRequestHeaders.Add("Authorization", AuthToken);
             }

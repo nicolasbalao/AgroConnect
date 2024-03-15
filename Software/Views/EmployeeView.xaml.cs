@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Contracts.Dtos;
+using Software.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,36 @@ namespace Software.Views
         public EmployeeView()
         {
             InitializeComponent();
+        }
+
+        public void OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            EmployeeDto currentItem = e.Row.Item as EmployeeDto;
+            if (currentItem.IsLocked) 
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+           if(e.AddedItems.Count > 0)
+            {
+
+                EmployeeDto employee = e.AddedItems[0] as EmployeeDto;
+
+                EmployeeViewModel vm = this.DataContext as EmployeeViewModel;
+
+                EmployeeDetailsView employeeDetails = new EmployeeDetailsView();
+                EmployeeDetailsViewModel employeeDetailsVM = new EmployeeDetailsViewModel(employee.Id);
+
+                employeeDetails.DataContext = employeeDetailsVM;
+
+                vm.NavigationService.NavigateTo(employeeDetails);
+
+            } 
+
         }
     }
 }

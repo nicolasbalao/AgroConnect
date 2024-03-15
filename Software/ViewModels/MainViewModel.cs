@@ -10,12 +10,13 @@ namespace Software.ViewModels
     internal class MainViewModel : ViewModelBase 
     {
 
-        public ICommand NavigateCommand { get; }
         public ICommand ShowAuthWindow { get; }
 
         private bool _isAdmin;
 
         private GlobalState _globalState;
+
+        public NavigationService NavigationService { get;  }
 
         public bool IsAdmin { get { return _isAdmin; }
         
@@ -26,11 +27,13 @@ namespace Software.ViewModels
 
         public  MainViewModel(GlobalState globalState)
         {
-            NavigateCommand = new RelayCommand<string>(Navigate);
+            NavigationService = NavigationService.Instance;
+            NavigationService.Navigate("Employees");
             ShowAuthWindow = new RelayCommand<string>(ShowAdminAuthWindow);
             _globalState = globalState;
 
             _globalState.IsAdminChanged += GlobalStateService_IsAdminChanged ;
+
 
         }
 
@@ -55,27 +58,5 @@ namespace Software.ViewModels
 
         }
 
-        public void Navigate(string section)
-        {
-            switch (section)
-            {
-                case "Sites":
-                    NavigateTo(new SiteView());
-                    break;
-                case "Departments":
-                    NavigateTo(new DepartmentView());
-                    break;
-                case "Employees":
-                    NavigateTo(new EmployeeView());
-                    break;
-                default:
-                    throw new ArgumentException("Invalid destination");
-            }
-
-        }
-        private void NavigateTo(object destination)
-        {
-            ((MainWindow)System.Windows.Application.Current.MainWindow).MainFrame.Content = destination;
-        }
     }
 }

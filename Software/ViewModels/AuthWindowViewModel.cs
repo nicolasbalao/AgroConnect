@@ -49,7 +49,8 @@ namespace Software.ViewModels
             if (!success)
             {
 
-            MessageBox.Show("Invalide password");
+                MessageBox.Show("Invalide password");
+                return;
             }
             GlobalState.IsAdmin = true;
             CloseAction?.Invoke();

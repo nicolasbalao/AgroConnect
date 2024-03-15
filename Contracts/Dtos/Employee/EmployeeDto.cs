@@ -12,6 +12,8 @@ public class EmployeeDto
     public string CellPhone { get; set; } = string.Empty;
 
     public string Email { get; set; } = string.Empty;
+    
+    public bool IsLocked { get; set; } = false;
 
     public DepartmentDto Department { get; set; } = new DepartmentDto();
 

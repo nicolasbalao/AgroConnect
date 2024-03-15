@@ -16,6 +16,7 @@ public static class EmployeeMapper
             HomePhone = employee.HomePhone,
             CellPhone = employee.CellPhone,
             Email = employee.Email,
+            IsLocked = employee.IsLocked,
             Department = employee.Department.ToDto(),
             Site = employee.Site.ToDto()
         };
