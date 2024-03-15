@@ -107,6 +107,18 @@ namespace Software.Services
             return false;
         }
 
+        public static async Task<string> LockEmployee(int id)
+        {
+            var url = $"employees/{id}/lock";
+            var response = await Client.PutAsync(url, null);
+            if(response.IsSuccessStatusCode)
+            {
+                return await HandleSuccessfulResponse<string>(response, url);
+            }
+
+            throw new Exception(response.ReasonPhrase);
+        }
+
         private static void SetAuthorizationHeaderIfNeeded()
         {
             if(AuthToken != null && Client.DefaultRequestHeaders.Authorization == null)

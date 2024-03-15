@@ -81,21 +81,34 @@ namespace Software.ViewModels
             {
                 LoadEmployee((int)id);
             }
+            else
+            {
+                IsEditing = true;
+            }
 
-            IsEditing = true;
             LoadDepartments();
             LoadSites();
         }
 
-        private void HandleToggleEdition(string _) {
+        private async void HandleToggleEdition(string _) {
 
-            if (!Employee.IsLocked)
+            try
             {
+                if (!Employee.IsLocked)
+                {
+                    throw new Exception("Locked");
+                }
+                else
+                {
+                    await HttpService.LockEmployee(Employee.Id);
+                }
 
-                MessageBox.Show("Locked");
+            }catch (Exception ex) { 
+                MessageBox.Show(ex.Message);
                 return;
 
             }
+            
             IsEditing = !IsEditing;
         }
 
