@@ -29,14 +29,14 @@
 
 
             <TextBlock Text="Department:"/>
-            <TextBlock Text="{Binding Department.Name}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+            <ComboBox ItemsSource="{Binding DataContext.Departments, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Department.Name}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=UserControl}}" SelectedItem="{Binding Department}"  DisplayMemberPath="Name"/>
 
             <TextBlock  Text="Site:"/>
-            <TextBlock Text="{Binding Site.City}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+            <ComboBox ItemsSource="{Binding DataContext.Sites, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Site.City}"  SelectedItem="{Binding Site}"  DisplayMemberPath="City" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
 
         </StackPanel>
-            
             <Button Grid.Row="9" Content="Toggle Edit" Command="{Binding ToggleEdition}" Visibility="{Binding GlobalStateService.IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Button Grid.Row="9" Content="Save" Command="{Binding OnSave}" Visibility="{Binding CanEdit, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </StackPanel>
 
     </Grid>

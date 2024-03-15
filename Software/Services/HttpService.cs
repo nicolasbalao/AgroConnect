@@ -109,7 +109,7 @@ namespace Software.Services
 
         private static void SetAuthorizationHeaderIfNeeded()
         {
-            if(AuthToken == null)
+            if(AuthToken != null)
             {
                 Client.DefaultRequestHeaders.Add("Authorization", AuthToken);
             }
