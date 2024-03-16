@@ -1,7 +1,6 @@
 
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using Newtonsoft.Json;
 
 namespace api.Services;
@@ -15,7 +14,6 @@ public class Payload
 
 public class AuthTokenService(string secret) : IAuthTokenService
 {
-    private readonly IConfiguration _configuration;
     private readonly string _secret = secret;
 
     public string GenerateToken(string uid, double experiaionTime)
