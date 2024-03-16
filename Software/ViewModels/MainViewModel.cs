@@ -12,7 +12,7 @@ namespace Software.ViewModels
 
         public ICommand ShowAuthWindow { get; }
 
-        private bool _isAdmin;
+        private bool _isAdmin = GlobalState.Instance.IsAdmin;
 
         private GlobalState _globalState;
 

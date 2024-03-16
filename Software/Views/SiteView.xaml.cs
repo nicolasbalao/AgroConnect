@@ -24,5 +24,15 @@ namespace Software.Views
         {
             InitializeComponent();
         }
+
+        private void DataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                var editedItem = e.Row.Item; // Replace YourDataModel with your actual model
+            }
+
+        }
     }
 }
