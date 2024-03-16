@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace api.Decorators;
+namespace api.utils;
 
 public class PaginationParams
 {

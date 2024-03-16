@@ -1,9 +1,8 @@
 
-using api.Decorators;
 using api.Filters;
 using api.Services;
+using api.utils;
 using Contracts.Dtos;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
@@ -22,9 +21,9 @@ public class EmployeeController : ControllerBase
 
 
     [HttpGet]
-    public async Task<ActionResult<PaginatedResponse<EmployeeDto>>> GetEmployees([FromQuery] PaginationParams paginationParams, [FromQuery] string? search = null)
+    public async Task<ActionResult<PaginatedResponse<EmployeeDto>>> GetEmployees([FromQuery] PaginationParams paginationParams, [FromQuery] string? search, [FromQuery] EmployeeFilters? filters)
     {
-        return await _employeeService.GetEmployees(paginationParams, search);
+        return await _employeeService.GetEmployees(paginationParams, search, filters);
     }
 
     [ServiceFilter(typeof(AdminAuthorize))]

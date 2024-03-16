@@ -1,8 +1,8 @@
 using api.CustomException;
-using api.Decorators;
 using api.Mappers;
 using api.Model;
 using api.Repository;
+using api.utils;
 using Contracts.Dtos;
 
 namespace api.Services;
@@ -22,26 +22,23 @@ public class EmployeeService : IEmployeeService
         _configuration = configuration;
     }
 
-    public async Task<PaginatedResponse<EmployeeDto>> GetEmployees(PaginationParams paginationParams, string? search)
+    public async Task<PaginatedResponse<EmployeeDto>> GetEmployees(PaginationParams paginationParams, string? search, EmployeeFilters? filters)
     {
-        List<Employee> employees;
 
-        if (search is null)
-            employees = await _employeeRepository.GetEmployees(paginationParams);
-        else
-            employees = await _employeeRepository.GetEmployees(paginationParams, search);
 
-        int TotalItems = await _employeeRepository.EmployeeCount();
+        var employees = await _employeeRepository.GetEmployees(paginationParams, search, filters);
+
+        int totalItems = await _employeeRepository.EmployeeCount();
+
+        var employeeDtos = employees.Select(e => e.ToDto()).ToList();
 
         return new PaginatedResponse<EmployeeDto>
         {
-            Items = employees.Select(e => e.ToDto()).ToList(),
-            TotalItems = TotalItems,
+            Items = employeeDtos,
+            TotalItems = totalItems,
             Page = paginationParams.Page,
             Size = paginationParams.Size
         };
-
-
     }
 
     public async Task<EmployeeDto> GetEmployee(int id)
