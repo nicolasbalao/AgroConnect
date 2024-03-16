@@ -7,6 +7,8 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Software.ViewModels
 {
@@ -18,14 +20,30 @@ namespace Software.ViewModels
             set { _sites = value; OnPropertyChanged(nameof(Sites)); }
         }
 
+        public ICommand DeleteSite { get; set; } 
 
         public  SiteViewModel()
         {
             LoadSites();
+            DeleteSite = new RelayCommand<int>(HandleDeleteSite);
 
         }
 
-        private void LoadSites()
+        private async void HandleDeleteSite(int id)
+        {
+            try
+            {
+                await HttpService.Delete<bool>($"sites/{id}");
+
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadSites();
+        }
+
+        public void LoadSites()
         {
             Task.Run(async () => await HttpService.Get<ObservableCollection<SiteDto>>("sites")).ContinueWith(t =>
             {
