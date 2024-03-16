@@ -19,14 +19,6 @@
         <DataGrid ItemsSource="{Binding Sites}" AutoGenerateColumns="False" CanUserAddRows="True" CellEditEnding="DataGrid_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ville" Binding="{Binding City}" />
-                <!--<DataGridTemplateColumn Header="Delete">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Delete" Command="{Binding DataContext.DeleteSite, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Id}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
-
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
