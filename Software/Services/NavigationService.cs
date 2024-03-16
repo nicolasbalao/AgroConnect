@@ -33,7 +33,8 @@ namespace Software.Services
             switch (section)
             {
                 case "Sites":
-                    NavigateTo(new SiteView());
+                    SiteView view = new SiteView();
+                    NavigateTo(view);
                     break;
                 case "Departments":
                     NavigateTo(new DepartmentView());
