@@ -1,6 +1,7 @@
 using api.database;
-using api.Decorators;
 using api.Model;
+using api.Repository.employee.EmployeeQueryExtension;
+using api.utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository;
@@ -14,26 +15,33 @@ public class EmployeeRepository : IEmployeeRepository
         _context = context;
     }
 
-    public async Task<List<Employee>> GetEmployees(PaginationParams paginationParams)
+    #region GetEmployees
+    public async Task<List<Employee>> GetEmployees(PaginationParams paginationParams, string? search, EmployeeFilters? filters)
     {
-        return await _context.Employees.Include(e => e.Department)
-            .Include(e => e.Site)
-            .Skip(paginationParams.GetOffset())
-            .Take(paginationParams.GetLimit())
-            .ToListAsync();
+        var query = GetEmployeeQuery();
+
+        if (filters is not null)
+            query = query.ApplyFilters(filters);
+
+        if (search is not null)
+        {
+            query = query.ApplySearch(search);
+        }
+
+
+        return await query.ApplyPagination(paginationParams).ToListAsync();
     }
 
-    public async Task<List<Employee>> GetEmployees(PaginationParams paginationParams, string search)
-    {
-        return await _context.Employees.Include(e => e.Department)
-            .Include(e => e.Site)
-            .Include(e => e.Department)
-            .Where(e => e.Firstname.Contains(search) || e.Lastname.Contains(search) || e.Department.Name.Contains(search) || e.Site.City.Contains(search))
-            .Skip(paginationParams.GetOffset())
-            .Take(paginationParams.GetLimit())
-            .ToListAsync();
 
+    private IQueryable<Employee> GetEmployeeQuery()
+    {
+        return _context.Employees.Include(e => e.Department)
+            .Include(e => e.Site).AsQueryable();
     }
+
+    #endregion
+
+
     public async Task<Employee> CreateEmployee(Employee employee)
     {
         var createdEmploye = await _context.Employees.AddAsync(employee);
@@ -59,7 +67,6 @@ public class EmployeeRepository : IEmployeeRepository
     {
         return await _context.Employees.Include(e => e.Department).Include(e => e.Site).FirstAsync(e => e.Id == id);
     }
-
 
 
     public async Task<bool> DeleteEmployee(int id)
