@@ -64,6 +64,12 @@ namespace Software.ViewModels
             set { _siteFilterSelected = value; OnPropertyChanged(nameof(SiteFilterSelected)); LoadEmployees(); } 
         }
 
+        public DepartmentDto _departmentFilterSelected;
+        public DepartmentDto DepartmentFilterSelected
+        {
+            get { return _departmentFilterSelected; }
+            set { _departmentFilterSelected = value; OnPropertyChanged(nameof(DepartmentFilterSelected)); LoadEmployees(); }
+        }
 
         public EmployeeViewModel() {
 
@@ -95,7 +101,7 @@ namespace Software.ViewModels
 
             Task.Run(async () =>
             {
-                string query = $"?search={_searchText?.Trim()}&SiteId={_siteFilterSelected?.Id}";
+                string query = $"?search={_searchText?.Trim()}&SiteId={_siteFilterSelected?.Id}&DepartmentId={_departmentFilterSelected?.Id}";
                 
 
                if(query != String.Empty)

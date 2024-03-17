@@ -22,6 +22,12 @@
             <ComboBox ItemsSource="{Binding Sites}" SelectedItem="{Binding SiteFilterSelected}" DisplayMemberPath="City"/>
 
 
+            <Label>Department filter</Label>
+            <ComboBox ItemsSource="{Binding Departments}" SelectedItem="{Binding DepartmentFilterSelected}" DisplayMemberPath="Name"/>
+
+
+
+
             <DataGrid ItemsSource="{Binding PaginatedEmployees.Items}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Firstname" Binding="{Binding Firstname}"/>
