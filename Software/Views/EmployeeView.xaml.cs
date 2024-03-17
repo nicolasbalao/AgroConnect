@@ -56,5 +56,17 @@ namespace Software.Views
             } 
 
         }
+
+        private void ClearSelectedSite(object sender, RoutedEventArgs e)
+        {
+            SiteFilter.SelectedItem = null;
+
+        }
+
+        private void ClearSelectedDepartment(object sender, RoutedEventArgs e)
+        {
+            DepartmentFilter.SelectedItem = null;
+
+        }
     }
 }

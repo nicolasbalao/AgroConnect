@@ -5,7 +5,7 @@ namespace Software.Services
     internal class GlobalState
     {
         private static readonly GlobalState _instance = new GlobalState();
-        private bool _isAdmin = true;
+        private bool _isAdmin = false;
 
         public static GlobalState Instance
         {
