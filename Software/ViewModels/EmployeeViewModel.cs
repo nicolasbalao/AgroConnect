@@ -3,6 +3,7 @@ using Software.Services;
 using Software.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +25,8 @@ namespace Software.ViewModels
         
         }
 
-        private SiteDto[] _sites;
-        public SiteDto[] Sites { get { return _sites; } 
+        private ObservableCollection<SiteDto> _sites; 
+        public ObservableCollection<SiteDto> Sites { get { return _sites; } 
         
             set { _sites = value; OnPropertyChanged(nameof(Sites));}
         
@@ -57,6 +58,11 @@ namespace Software.ViewModels
         
         }
 
+        public SiteDto _siteFilterSelected;
+        public SiteDto SiteFilterSelected { 
+            get { return _siteFilterSelected; } 
+            set { _siteFilterSelected = value; OnPropertyChanged(nameof(SiteFilterSelected)); LoadEmployees(); } 
+        }
 
 
         public EmployeeViewModel() {
@@ -89,15 +95,13 @@ namespace Software.ViewModels
 
             Task.Run(async () =>
             {
-                string query = String.Empty;
-                if(_searchText != null)
-                {
-                    query = $"search={_searchText.Trim()}";
-                }
+                string query = $"?search={_searchText?.Trim()}&SiteId={_siteFilterSelected?.Id}";
+                
 
                if(query != String.Empty)
                 {
-                    return await HttpService.Get<PaginatedResponse<EmployeeDto>>($"employees?{query}");
+                    return await HttpService.Get<PaginatedResponse<EmployeeDto>>($"employees{query}");
+                    
                 }
 
                 return await HttpService.Get<PaginatedResponse<EmployeeDto>>("employees");
@@ -117,11 +121,16 @@ namespace Software.ViewModels
 
             Task.Run(async () =>
             {
-                return await HttpService.Get<SiteDto[]>("sites");
+                return await HttpService.Get<ObservableCollection<SiteDto>>("sites");
 
             })
             .ContinueWith(t =>
             {
+                t.Result.Add(new SiteDto
+                {
+                    Id = 0,
+                    City= "None"
+                });
 
                 Sites = t.Result;
 
