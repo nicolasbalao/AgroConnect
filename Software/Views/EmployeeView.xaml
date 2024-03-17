@@ -56,10 +56,12 @@
                     <DataGridTextColumn Header="Home phone" Binding="{Binding HomePhone}"/>
                     <DataGridTextColumn Header="Department" Binding="{Binding Department.Name}"/>
                     <DataGridTextColumn Header="Site" Binding="{Binding Site.City}"/>
+
+
+                    <DataGridCheckBoxColumn Header="Locked" Binding="{Binding IsLocked}"/>
+
                 </DataGrid.Columns>
-
             </DataGrid>
-
         </StackPanel>
 
     </Grid>
