@@ -45,6 +45,18 @@ namespace Software.ViewModels
 
         public ICommand CreateEmployeeCMD { get; set; }
 
+        private string _searchText;
+
+        public string SearchText { 
+            get { return _searchText; }
+            set { 
+                _searchText = value; 
+                LoadEmployees(); 
+                OnPropertyChanged(nameof(SearchText)); 
+            }
+        
+        }
+
 
 
         public EmployeeViewModel() {
@@ -77,6 +89,17 @@ namespace Software.ViewModels
 
             Task.Run(async () =>
             {
+                string query = String.Empty;
+                if(_searchText != null)
+                {
+                    query = $"search={_searchText.Trim()}";
+                }
+
+               if(query != String.Empty)
+                {
+                    return await HttpService.Get<PaginatedResponse<EmployeeDto>>($"employees?{query}");
+                }
+
                 return await HttpService.Get<PaginatedResponse<EmployeeDto>>("employees");
 
             })

@@ -8,22 +8,26 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock>Employee</TextBlock>
+        <StackPanel Orientation="Vertical" Margin="10">
 
-        <DataGrid ItemsSource="{Binding PaginatedEmployees.Items}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Firstname" Binding="{Binding Firstname}"/>
-                <DataGridTextColumn Header="Lastname" Binding="{Binding Lastname}"/>
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                <DataGridTextColumn Header="Phone number" Binding="{Binding CellPhone}"/>
-                <DataGridTextColumn Header="Home phone" Binding="{Binding HomePhone}"/>
-                <DataGridTextColumn Header="Department" Binding="{Binding Department.Name}"/>
-                <DataGridTextColumn Header="Site" Binding="{Binding Site.City}"/>
-            </DataGrid.Columns>
+            <Label>Search</Label>
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" />
+
+            <DataGrid ItemsSource="{Binding PaginatedEmployees.Items}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Firstname" Binding="{Binding Firstname}"/>
+                    <DataGridTextColumn Header="Lastname" Binding="{Binding Lastname}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                    <DataGridTextColumn Header="Phone number" Binding="{Binding CellPhone}"/>
+                    <DataGridTextColumn Header="Home phone" Binding="{Binding HomePhone}"/>
+                    <DataGridTextColumn Header="Department" Binding="{Binding Department.Name}"/>
+                    <DataGridTextColumn Header="Site" Binding="{Binding Site.City}"/>
+                </DataGrid.Columns>
             
-        </DataGrid>
+            </DataGrid>
 
-        <Button Command="{Binding CreateEmployeeCMD}" Visibility="{Binding GlobalState.IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}">New</Button>
+            <Button Command="{Binding CreateEmployeeCMD}" Visibility="{Binding GlobalState.IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}">New</Button>
+        </StackPanel>
 
     </Grid>
 
