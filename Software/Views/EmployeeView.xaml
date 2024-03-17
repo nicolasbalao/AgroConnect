@@ -15,20 +15,30 @@
     <Grid>
         <StackPanel Orientation="Vertical" Margin="10">
 
-            <Label>Search</Label>
-            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
-            <Label>Site filter</Label>
-            <ComboBox ItemsSource="{Binding Sites}" SelectedItem="{Binding SiteFilterSelected}" DisplayMemberPath="City"/>
-
-
-            <Label>Department filter</Label>
-            <ComboBox ItemsSource="{Binding Departments}" SelectedItem="{Binding DepartmentFilterSelected}" DisplayMemberPath="Name"/>
+                <StackPanel Margin="10">
+                    <Label>Site filter</Label>
+                    <ComboBox ItemsSource="{Binding Sites}" SelectedItem="{Binding SiteFilterSelected}" DisplayMemberPath="City" Style="{StaticResource MaterialDesignOutlinedComboBox}" Padding="10"/>
+                </StackPanel>
 
 
+                <StackPanel Margin="10">
+                    <Label>Department filter</Label>
+                    <ComboBox ItemsSource="{Binding Departments}" SelectedItem="{Binding DepartmentFilterSelected}" DisplayMemberPath="Name" Style="{StaticResource MaterialDesignOutlinedComboBox}" Padding="10"/>
+                </StackPanel>
+
+                <StackPanel Margin="10" Width="200">
+                    <Label>Search</Label>
+                    <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MaterialDesignOutlinedTextBox}" Padding="10"/>
+                </StackPanel>
+            </StackPanel>
+
+            
+            <Button Command="{Binding CreateEmployeeCMD}" Visibility="{Binding GlobalState.IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">New</Button>
 
 
-            <DataGrid ItemsSource="{Binding PaginatedEmployees.Items}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged">
+            <DataGrid ItemsSource="{Binding PaginatedEmployees.Items}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged" Margin="0 50 0 0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Firstname" Binding="{Binding Firstname}"/>
                     <DataGridTextColumn Header="Lastname" Binding="{Binding Lastname}"/>
@@ -38,10 +48,9 @@
                     <DataGridTextColumn Header="Department" Binding="{Binding Department.Name}"/>
                     <DataGridTextColumn Header="Site" Binding="{Binding Site.City}"/>
                 </DataGrid.Columns>
-            
+
             </DataGrid>
 
-            <Button Command="{Binding CreateEmployeeCMD}" Visibility="{Binding GlobalState.IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}">New</Button>
         </StackPanel>
 
     </Grid>
