@@ -62,6 +62,18 @@
 
                 </DataGrid.Columns>
             </DataGrid>
+
+            <!-- Pagination controls -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Button Content="Previous"  Command="{Binding PreviousPage}"/>
+                <TextBlock Text="{Binding PageIndex}" Margin="5"/>
+                <TextBlock Text="/"/>
+                <TextBlock Text="{Binding TotalPages}" Margin="5"/>
+                <Button Content="Next"  Command="{Binding NextPage}"/>
+
+                <ComboBox ItemsSource="{Binding Sizes}" SelectedItem="{Binding PageSize, UpdateSourceTrigger=PropertyChanged}" Text="{Binding PageSize}"/>
+            </StackPanel>
+
         </StackPanel>
 
     </Grid>

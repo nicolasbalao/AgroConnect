@@ -80,9 +80,49 @@ namespace Software.ViewModels
             set { _departmentFilterSelected = value; OnPropertyChanged(nameof(DepartmentFilterSelected)); LoadEmployees(); }
         }
 
+        private int _pageIndex = 1;
+        public int PageIndex
+        {
+            get { return _pageIndex; }
+            set
+            {
+                _pageIndex = value; 
+                OnPropertyChanged(nameof(PageIndex));
+                LoadEmployees();
+            }
+        }
+
+        private int _totalPages;
+
+        public int TotalPages
+        {
+            get { return _totalPages; }
+            set { _totalPages = value; OnPropertyChanged(nameof(TotalPages)); }
+        }
+
+        public ObservableCollection<int> Sizes { get; set;} = new ObservableCollection<int>() { 5, 10, 20, 30 };
+
+        private int _pageSize = 5;
+        public int PageSize
+        {
+            get { return _pageSize; }
+            set
+            {
+                _pageSize = value;
+                OnPropertyChanged(nameof(PageSize));
+                LoadEmployees();
+            }
+
+        }
+
+        public ICommand NextPage { get; set; }
+        public ICommand PreviousPage { get; set; }
+
         public EmployeeViewModel()
         {
 
+            NextPage = new RelayCommand<string>(HandleNextPage);
+            PreviousPage = new RelayCommand<string>(HandlePreviousPage);
             NavigationService = NavigationService.Instance;
             CreateEmployeeCMD = new RelayCommand<string>(HandleCreateEmploye);
             LoadSites();
@@ -103,7 +143,24 @@ namespace Software.ViewModels
 
         }
 
+        private void HandleNextPage(string _) 
+        {
+            var nextPage = PageIndex + 1;
+            if(nextPage * _pageSize != PaginatedEmployees.TotalItems)
+            {
+                PageIndex++;
 
+            }
+        }
+
+        private void HandlePreviousPage(string _) {
+        
+            var previousPage = PageIndex - 1;
+            if(previousPage != 0)
+            {
+                PageIndex--;
+            }
+        }
 
 
         private void LoadEmployees()
@@ -111,7 +168,7 @@ namespace Software.ViewModels
 
             Task.Run(async () =>
             {
-                string query = $"?search={_searchText?.Trim()}&SiteId={_siteFilterSelected?.Id}&DepartmentId={_departmentFilterSelected?.Id}";
+                string query = $"?search={_searchText?.Trim()}&SiteId={_siteFilterSelected?.Id}&DepartmentId={_departmentFilterSelected?.Id}&Size={_pageSize}&Page={PageIndex}";
 
 
                 if (query != String.Empty)
@@ -127,6 +184,7 @@ namespace Software.ViewModels
             {
 
                 PaginatedEmployees = t.Result;
+                TotalPages = (int)Math.Ceiling((double)PaginatedEmployees.TotalItems / PaginatedEmployees.Size);
 
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
