@@ -68,5 +68,14 @@ namespace Software.Views
             DepartmentFilter.SelectedItem = null;
 
         }
+
+
+        private void DeleteButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            var button = (Button)sender;
+            button.Command.Execute(button.CommandParameter);
+            e.Handled = true;
+        }
     }
 }

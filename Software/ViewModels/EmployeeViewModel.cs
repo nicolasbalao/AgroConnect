@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -51,6 +52,7 @@ namespace Software.ViewModels
         public NavigationService NavigationService { get; }
 
         public ICommand CreateEmployeeCMD { get; set; }
+        public ICommand DeleteEmployeeCMD { get; set; }
 
         private string _searchText;
 
@@ -125,8 +127,24 @@ namespace Software.ViewModels
             PreviousPage = new RelayCommand<string>(HandlePreviousPage);
             NavigationService = NavigationService.Instance;
             CreateEmployeeCMD = new RelayCommand<string>(HandleCreateEmploye);
+            DeleteEmployeeCMD = new RelayCommand<int>(HandleDeleteEmploye);
             LoadSites();
             LoadDepartments();
+            LoadEmployees();
+
+        }
+
+        private async void HandleDeleteEmploye(int id)
+        {
+
+            try
+            {
+                await HttpService.Delete<bool>($"employees/{id}");
+
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             LoadEmployees();
 
         }
