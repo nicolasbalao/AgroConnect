@@ -46,32 +46,36 @@
 
             <Button Command="{Binding CreateEmployeeCMD}" Visibility="{Binding GlobalState.IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right" Margin="0 10 0 0">New</Button>
 
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}">Employees: </TextBlock>
+                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{Binding PaginatedEmployees.TotalItems}" Margin="10 0 0 0"/>
+            </StackPanel>
 
-            <DataGrid ItemsSource="{Binding PaginatedEmployees.Items}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged" Margin="0 50 0 0" HorizontalAlignment="Stretch">
+            <DataGrid ItemsSource="{Binding PaginatedEmployees.Items}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged" Margin="0 50 0 0" HorizontalAlignment="Stretch" BorderThickness="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Firstname" Binding="{Binding Firstname}"/>
-                    <DataGridTextColumn Header="Lastname" Binding="{Binding Lastname}"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                    <DataGridTextColumn Header="Phone number" Binding="{Binding CellPhone}"/>
-                    <DataGridTextColumn Header="Home phone" Binding="{Binding HomePhone}"/>
-                    <DataGridTextColumn Header="Department" Binding="{Binding Department.Name}"/>
-                    <DataGridTextColumn Header="Site" Binding="{Binding Site.City}"/>
-
-
-                    <DataGridCheckBoxColumn Header="Locked" Binding="{Binding IsLocked}"/>
+                    <DataGridTextColumn Header="Firstname" Binding="{Binding Firstname}" Width="*"/>
+                    <DataGridTextColumn Header="Lastname" Binding="{Binding Lastname}" Width="*"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                    <DataGridTextColumn Header="Phone number" Binding="{Binding CellPhone}" Width="*"/>
+                    <DataGridTextColumn Header="Home phone" Binding="{Binding HomePhone}" Width="*"/>
+                    <DataGridTextColumn Header="Department" Binding="{Binding Department.Name}" Width="*"/>
+                    <DataGridTextColumn Header="Site" Binding="{Binding Site.City}" Width="*"/>
+                    <DataGridCheckBoxColumn Header="Locked" Binding="{Binding IsLocked}" Width="*"/>
 
                 </DataGrid.Columns>
             </DataGrid>
 
             <!-- Pagination controls -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                <Button Content="Previous"  Command="{Binding PreviousPage}"/>
-                <TextBlock Text="{Binding PageIndex}" Margin="5"/>
-                <TextBlock Text="/"/>
-                <TextBlock Text="{Binding TotalPages}" Margin="5"/>
-                <Button Content="Next"  Command="{Binding NextPage}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10 40 10 10">
+                <Button Content="Previous"  Command="{Binding PreviousPage}" Margin="10"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10 0 10 0">  
+                    <TextBlock Text="{Binding PageIndex}" Margin="10"/>
+                    <TextBlock Text="/" Margin="10"/>
+                    <TextBlock Text="{Binding TotalPages}" Margin="10"/>
+                </StackPanel>
+                <Button Content="Next"  Command="{Binding NextPage}" Margin="10"/>
 
-                <ComboBox ItemsSource="{Binding Sizes}" SelectedItem="{Binding PageSize, UpdateSourceTrigger=PropertyChanged}" Text="{Binding PageSize}"/>
+                <ComboBox ItemsSource="{Binding Sizes}" SelectedItem="{Binding PageSize, UpdateSourceTrigger=PropertyChanged}" Text="{Binding PageSize}" Margin="10" Style="{StaticResource MaterialDesignOutlinedComboBox}" Padding="5"/>
             </StackPanel>
 
         </StackPanel>
