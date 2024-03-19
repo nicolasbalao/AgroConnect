@@ -38,13 +38,13 @@ namespace Software.Views
             if (e.EditAction == DataGridEditAction.Commit)
             {
                 var textBox = e.EditingElement as TextBox;
-                string newValue = textBox.Text; 
+                string newValue = textBox.Text;
 
                 DepartmentDto editedItem = (DepartmentDto)e.Row.Item; // Replace YourDataModel with your actual model
 
                 // 0 is the default value when id doesn't exist 
                 // TODO change this to null
-                if(editedItem.Id != 0)
+                if (editedItem.Id != 0 && newValue != String.Empty)
                 {
                     try
                     {
@@ -56,7 +56,8 @@ namespace Software.Views
 
                         await HttpService.Put<SiteDto, UpdateDepartmentDto>($"departments/{editedItem.Id}", updateDepartment);
 
-                    }catch(Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
 
@@ -69,21 +70,25 @@ namespace Software.Views
 
 
 
-                try
+                if (newValue != String.Empty)
                 {
-
-                    CreateDepartmentDto createdDepartment = new CreateDepartmentDto()
+                    try
                     {
-                        Name = newValue,
-                    };
 
-                    await HttpService.Post<SiteDto,CreateDepartmentDto >("departments", createdDepartment);
+                        CreateDepartmentDto createdDepartment = new CreateDepartmentDto()
+                        {
+                            Name = newValue,
+                        };
 
-                }catch(Exception ex)
-                {
-                    MessageBox.Show (ex.Message);   
+                        await HttpService.Post<SiteDto, CreateDepartmentDto>("departments", createdDepartment);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    vm.LoadDepartments();
                 }
-                vm.LoadDepartments();
 
             }
 
