@@ -1,4 +1,5 @@
 
+using api.CustomException;
 using api.Filters;
 using api.Services;
 using api.utils;
@@ -52,7 +53,9 @@ public class EmployeeController : ControllerBase
         if (id != updateEmployeeDto.Id)
             return BadRequest("Id in the body does not match the id in the route");
 
-        return await _employeeService.UpdateEmployee(updateEmployeeDto, "2");
+        var userUid = GetUserUid();
+
+        return await _employeeService.UpdateEmployee(updateEmployeeDto, userUid);
     }
 
     [ServiceFilter(typeof(AdminAuthorize))]
@@ -67,9 +70,21 @@ public class EmployeeController : ControllerBase
     [HttpPut("{id:int}/lock")]
     public async Task<ActionResult> LockEmployeeForModification(int id)
     {
-        string lockedBy = "1";
+
+        var lockedBy = GetUserUid();
         await _employeeService.LockEmployeeForModification(id, lockedBy);
         return Ok();
+    }
+
+    private string GetUserUid()
+    {
+        if (!HttpContext.Items.TryGetValue("UserUid", out var uid))
+        {
+            throw new BadRequestException("User uid not found");
+        }
+        return uid.ToString();
+
+
     }
 
 

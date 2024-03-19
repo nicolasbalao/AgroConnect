@@ -14,18 +14,18 @@ namespace Software.Services
     internal static class HttpService
     {
 
-        private const string _baseUrl  = "http://localhost:5218/api/v1/";
-        //private static HttpClient Client { get => new() { BaseAddress = new Uri(_baseUrl) }; }
+        private const string _baseUrl = "http://localhost:5218/api/v1/";
         private static HttpClient Client;
         private static string? AuthToken;
 
 
         static HttpService()
         {
-            Client = new HttpClient() { BaseAddress = new Uri(_baseUrl)};
+            Client = new HttpClient() { BaseAddress = new Uri(_baseUrl) };
         }
 
-        public  static async Task<T> Get<T>(string url) {
+        public static async Task<T> Get<T>(string url)
+        {
 
             //SetAuthorizationHeaderIfNeeded();
 
@@ -47,7 +47,7 @@ namespace Software.Services
             var requestContent = SerializeToJsonStringContent(data!);
 
             var response = await Client.PostAsync(url, requestContent);
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 string resultat = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<TResponse>(resultat)
@@ -78,8 +78,8 @@ namespace Software.Services
         {
 
             SetAuthorizationHeaderIfNeeded();
-            var response  = await Client.DeleteAsync(url);
-            if( response.IsSuccessStatusCode)
+            var response = await Client.DeleteAsync(url);
+            if (response.IsSuccessStatusCode)
             {
                 return await HandleSuccessfulResponse<TResponse>(response, url);
             }
@@ -96,7 +96,7 @@ namespace Software.Services
             if (response.IsSuccessStatusCode)
             {
 
-                if(response.Headers.TryGetValues("Authorization", out var tokenValue))
+                if (response.Headers.TryGetValues("Authorization", out var tokenValue))
                 {
 
                     AuthToken = tokenValue.FirstOrDefault();
@@ -107,33 +107,34 @@ namespace Software.Services
             return false;
         }
 
-        public static async Task<string> LockEmployee(int id)
+        public static async Task LockEmployee(int id)
         {
+            SetAuthorizationHeaderIfNeeded();
+
             var url = $"employees/{id}/lock";
             var response = await Client.PutAsync(url, null);
-            if(response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                return await HandleSuccessfulResponse<string>(response, url);
+                throw new Exception(response.ReasonPhrase);
             }
 
-            throw new Exception(response.ReasonPhrase);
         }
 
         private static void SetAuthorizationHeaderIfNeeded()
         {
-            if(AuthToken != null && Client.DefaultRequestHeaders.Authorization == null)
+            if (AuthToken != null && Client.DefaultRequestHeaders.Authorization == null)
             {
                 Client.DefaultRequestHeaders.Add("Authorization", AuthToken);
             }
         }
 
-        private static async Task<TResponse> HandleSuccessfulResponse<TResponse>(HttpResponseMessage response,string url)
+        private static async Task<TResponse> HandleSuccessfulResponse<TResponse>(HttpResponseMessage response, string url)
         {
-                string resultat = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<TResponse>(resultat) ?? throw new FormatException($"Erreur Http: {_baseUrl + url}");
+            string resultat = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<TResponse>(resultat) ?? throw new FormatException($"Erreur Http: {_baseUrl + url}");
         }
 
-        private static  StringContent SerializeToJsonStringContent(object data)
+        private static StringContent SerializeToJsonStringContent(object data)
         {
             var dataJson = JsonConvert.SerializeObject(data);
 

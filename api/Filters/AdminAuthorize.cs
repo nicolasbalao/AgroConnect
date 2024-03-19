@@ -35,7 +35,7 @@ public class AdminAuthorize : Attribute, IAuthorizationFilter
             return;
         }
 
-        context.HttpContext.Items["User"] = _authTokenService.GetPayload(token);
+        context.HttpContext.Items["UserUid"] = _authTokenService.GetPayload(token).Uid;
     }
 
     private bool IsAuthorized(string token)

@@ -107,7 +107,7 @@ public class EmployeeService : IEmployeeService
 
 
         if (employee.IsLocked && !IsPreviousLockExpired(employee))
-            throw new BadRequestException("Employee is already locked for modification");
+            throw new ConflictException("Employee is already locked for modification");
 
         // TODO: If throw new is like return
         await _employeeRepository.LockEmployeeForModification(employee, lockedBy);
