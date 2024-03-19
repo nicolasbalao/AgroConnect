@@ -165,7 +165,7 @@ namespace Software.ViewModels
         private void HandleNextPage(string _)
         {
             var nextPage = PageIndex + 1;
-            if (nextPage * _pageSize != PaginatedEmployees.TotalItems)
+            if (nextPage * _pageSize < PaginatedEmployees.TotalItems)
             {
                 PageIndex++;
 
