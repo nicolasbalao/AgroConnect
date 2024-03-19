@@ -76,6 +76,15 @@ public class EmployeeController : ControllerBase
         return Ok();
     }
 
+    [ServiceFilter(typeof(AdminAuthorize))]
+    [HttpPut("{id:int}/lock/release")]
+    public async Task<ActionResult> ReleaseEmployeeLock(int id)
+    {
+
+        var lockedBy = GetUserUid();
+        await _employeeService.ReleaseEmployeeLock(id, lockedBy);
+        return Ok();
+    }
     private string GetUserUid()
     {
         if (!HttpContext.Items.TryGetValue("UserUid", out var uid))
@@ -83,7 +92,6 @@ public class EmployeeController : ControllerBase
             throw new BadRequestException("User uid not found");
         }
         return uid.ToString();
-
 
     }
 

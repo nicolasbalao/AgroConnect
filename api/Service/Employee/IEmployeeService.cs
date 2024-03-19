@@ -11,5 +11,6 @@ namespace api.Services
         Task<EmployeeDto> UpdateEmployee(UpdateEmployeeDto updateEmployeeDto, string lockedBy);
         Task LockEmployeeForModification(int id, string lockedBy);
         Task DeleteEmployee(int id);
+        Task ReleaseEmployeeLock(int id, string lockedBy);
     }
 }

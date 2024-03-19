@@ -129,4 +129,18 @@ public class EmployeeService : IEmployeeService
             return true;
         return false;
     }
+
+    public async Task ReleaseEmployeeLock(int id, string lockedBy)
+    {
+        var employee = await _employeeRepository.GetEmployee(id);
+
+        if (employee is null)
+            throw new NotFoundExecption("Employee not found");
+        if (employee.LockedBy != lockedBy)
+            throw new BadRequestException("Employee is not locked by you");
+
+        await _employeeRepository.UnlockEmployeeForModification(id);
+
+
+    }
 }
