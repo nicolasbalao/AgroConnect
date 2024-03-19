@@ -14,9 +14,9 @@
 
  
 
-    <Grid>
+    <Grid Margin="50 0 50 0">
 
-        <DataGrid ItemsSource="{Binding Sites}" AutoGenerateColumns="False" CanUserAddRows="True" CellEditEnding="DataGrid_CellEditEnding">
+        <DataGrid ItemsSource="{Binding Sites}" AutoGenerateColumns="False" CanUserAddRows="True" CellEditEnding="DataGrid_CellEditEnding" BorderThickness="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ville" Binding="{Binding City}" />
                 <DataGridTemplateColumn>
