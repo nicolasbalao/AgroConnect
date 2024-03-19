@@ -21,21 +21,31 @@ namespace Software.ViewModels
         public ICommand OnSave { get; set; }
 
 
-        private EmployeeDto _employee = new() {};
-        public EmployeeDto Employee { get { return _employee; } set {
+        private EmployeeDto _employee = new() { };
+        public EmployeeDto Employee
+        {
+            get { return _employee; }
+            set
+            {
 
                 _employee = value;
                 OnPropertyChanged(nameof(Employee));
 
-            } }
+            }
+        }
 
 
         private SiteDto[] _sites;
-        public SiteDto[] Sites { get { return _sites; } set {
+        public SiteDto[] Sites
+        {
+            get { return _sites; }
+            set
+            {
 
                 _sites = value;
                 OnPropertyChanged(nameof(Sites));
-            } }
+            }
+        }
 
         private DepartmentDto[] _departments;
 
@@ -50,10 +60,9 @@ namespace Software.ViewModels
             }
         }
 
+        private bool _isEditing = false;
 
-        private bool  _isEditing = false;
-
-        public bool  IsEditing
+        public bool IsEditing
         {
             get { return _isEditing; }
             set { _isEditing = value == true; OnPropertyChanged(nameof(IsEditing)); }
@@ -61,11 +70,15 @@ namespace Software.ViewModels
 
 
         private int _siteSelectedId;
-        public int SiteSelectedId { get { return _siteSelectedId; } set
+        public int SiteSelectedId
+        {
+            get { return _siteSelectedId; }
+            set
             {
                 _siteSelectedId = value;
                 OnPropertyChanged(nameof(SiteSelectedId));
-            } }
+            }
+        }
 
 
 
@@ -77,7 +90,7 @@ namespace Software.ViewModels
             OnSave = new RelayCommand<string>(HandlingOnSave);
             GlobalStateService = GlobalState.Instance;
             NavigationService = NavigationService.Instance;
-            if(id != null)
+            if (id != null)
             {
                 LoadEmployee((int)id);
             }
@@ -90,25 +103,28 @@ namespace Software.ViewModels
             LoadSites();
         }
 
-        private async void HandleToggleEdition(string _) {
+        private async void HandleToggleEdition(string _)
+        {
 
             try
             {
-                if (!Employee.IsLocked)
+                if (IsEditing)
                 {
-                    throw new Exception("Locked");
+                    await HttpService.UnlockEmployee(Employee.Id);
                 }
                 else
                 {
                     await HttpService.LockEmployee(Employee.Id);
                 }
 
-            }catch (Exception ex) { 
+            }
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message);
                 return;
 
             }
-            
+
             IsEditing = !IsEditing;
         }
 
@@ -119,27 +135,28 @@ namespace Software.ViewModels
 
                 UpdateEmployeeDto data = new UpdateEmployeeDto()
                 {
-                    Id=Employee.Id,
+                    Id = Employee.Id,
                     Firstname = Employee.Firstname,
                     Lastname = Employee.Lastname,
                     Email = Employee.Email,
                     HomePhone = Employee.HomePhone,
-                    CellPhone   = Employee.CellPhone,
+                    CellPhone = Employee.CellPhone,
                     SiteId = Employee.Site.Id,
                     DepartmentId = Employee.Department.Id,
-                    
+
                 };
 
                 try
                 {
 
                     var updatedEmploye = await HttpService.Put<EmployeeDto, UpdateEmployeeDto>($"employees/{Employee.Id}", data);
-                }catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
 
-            NavigationService.Navigate("Employees");
+                NavigationService.Navigate("Employees");
                 return;
             }
 
@@ -159,10 +176,11 @@ namespace Software.ViewModels
                 await HttpService.Post<EmployeeDto, CreateEmployeeDto>("employees", createEmployeeDto);
 
             }
-            catch (Exception e){
+            catch (Exception e)
+            {
 
                 MessageBox.Show(e.Message);
-            
+
             }
 
 

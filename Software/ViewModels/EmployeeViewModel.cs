@@ -88,7 +88,7 @@ namespace Software.ViewModels
             get { return _pageIndex; }
             set
             {
-                _pageIndex = value; 
+                _pageIndex = value;
                 OnPropertyChanged(nameof(PageIndex));
                 LoadEmployees();
             }
@@ -102,7 +102,7 @@ namespace Software.ViewModels
             set { _totalPages = value; OnPropertyChanged(nameof(TotalPages)); }
         }
 
-        public ObservableCollection<int> Sizes { get; set;} = new ObservableCollection<int>() { 5, 10, 20, 30 };
+        public ObservableCollection<int> Sizes { get; set; } = new ObservableCollection<int>() { 5, 10, 20, 30 };
 
         private int _pageSize = 5;
         public int PageSize
@@ -141,7 +141,8 @@ namespace Software.ViewModels
             {
                 await HttpService.Delete<bool>($"employees/{id}");
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -161,20 +162,21 @@ namespace Software.ViewModels
 
         }
 
-        private void HandleNextPage(string _) 
+        private void HandleNextPage(string _)
         {
             var nextPage = PageIndex + 1;
-            if(nextPage * _pageSize != PaginatedEmployees.TotalItems)
+            if (nextPage * _pageSize != PaginatedEmployees.TotalItems)
             {
                 PageIndex++;
 
             }
         }
 
-        private void HandlePreviousPage(string _) {
-        
+        private void HandlePreviousPage(string _)
+        {
+
             var previousPage = PageIndex - 1;
-            if(previousPage != 0)
+            if (previousPage != 0)
             {
                 PageIndex--;
             }

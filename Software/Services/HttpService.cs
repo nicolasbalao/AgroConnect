@@ -120,6 +120,19 @@ namespace Software.Services
 
         }
 
+        public static async Task UnlockEmployee(int id)
+        {
+            SetAuthorizationHeaderIfNeeded();
+
+            var url = $"employees/{id}/lock/release";
+            var response = await Client.PutAsync(url, null);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(response.ReasonPhrase);
+            }
+
+        }
+
         private static void SetAuthorizationHeaderIfNeeded()
         {
             if (AuthToken != null && Client.DefaultRequestHeaders.Authorization == null)
