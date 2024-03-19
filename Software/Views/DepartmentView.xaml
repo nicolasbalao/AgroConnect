@@ -12,8 +12,8 @@
         <vm:DepartmentViewModel/>
     </UserControl.DataContext>
 
-    <Grid>
-        <DataGrid ItemsSource="{Binding Departments}" AutoGenerateColumns="False" CanUserAddRows="True" CellEditEnding="DataGrid_CellEditEnding">
+    <Grid Margin="50 0 50 0">
+        <DataGrid ItemsSource="{Binding Departments}" AutoGenerateColumns="False" CanUserAddRows="True" CellEditEnding="DataGrid_CellEditEnding" BorderThickness="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ville" Binding="{Binding Name}" />
                 <DataGridTemplateColumn>
