@@ -1,7 +1,9 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using api.Department.Model;
+using api.Mappers;
 using api.Model;
+using api.Site.Model;
 
 namespace api.Employee.Model;
 
@@ -31,6 +33,6 @@ public class EmployeeModel : BaseModel
 
     [ForeignKey(nameof(Site))]
     public int SiteId { get; set; }
-    public virtual Site? Site { get; set; }
+    public virtual SiteModel? Site { get; set; }
 
 }

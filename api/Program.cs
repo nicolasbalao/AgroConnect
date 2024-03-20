@@ -1,8 +1,13 @@
-using api.database;
-using api.Filters;
-using api.Repository;
-using api.Services;
-using cube4api.Middleware;
+using api.Admin.Filters;
+using api.Admin.Services;
+using api.Department.Repository;
+using api.Department.Service;
+using api.Employee.Repository;
+using api.Employee.Service;
+using api.Infrastructure.Database;
+using api.Infrastructure.Middleware;
+using api.Site.Repository;
+using api.Site.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 
