@@ -1,8 +1,8 @@
-using api.database;
-using api.Model;
+using api.Department.Model;
+using api.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.Repository;
+namespace api.Department.Repository;
 
 public class DepartmentRepository : IDepartmentRepository
 {
@@ -13,26 +13,26 @@ public class DepartmentRepository : IDepartmentRepository
         _context = context;
     }
 
-    public Task<List<Department>> GetDepartment()
+    public Task<List<DepartmentModel>> GetDepartment()
     {
         return _context.Departments.ToListAsync();
     }
 
 
 
-    public async Task<Department> CreateDepartment(Department department)
+    public async Task<DepartmentModel> CreateDepartment(DepartmentModel department)
     {
         var departmentCreated = await _context.Departments.AddAsync(department);
         await _context.SaveChangesAsync();
         return departmentCreated.Entity;
     }
 
-    public async Task<Department?> GetDepartment(int id)
+    public async Task<DepartmentModel?> GetDepartment(int id)
     {
         return await _context.Departments.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<Department> UpdateDepartment(Department department)
+    public async Task<DepartmentModel> UpdateDepartment(DepartmentModel department)
     {
         var updatedDepartment = _context.Departments.Update(department);
         await _context.SaveChangesAsync();

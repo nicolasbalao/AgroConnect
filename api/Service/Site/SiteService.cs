@@ -1,9 +1,9 @@
-using api.Repository;
+using api.Framework.Exception;
 using api.Mappers;
+using api.Site.Repository;
 using Contracts.Dtos;
-using api.CustomException;
 
-namespace api.Services;
+namespace api.Site.Service;
 
 public class SiteService : ISiteService
 {

@@ -1,9 +1,10 @@
-using api.CustomException;
-using api.Repository;
 using Contracts.Dtos;
 using api.Mappers;
+using api.Department.Repository;
+using api.Department.Mapper;
+using api.Framework.Exception;
 
-namespace api.Services;
+namespace api.Department.Service;
 
 public class DepartmentService : IDepartmentService
 {

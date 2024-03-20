@@ -1,10 +1,10 @@
-using api.database;
-using api.Model;
-using api.Repository.employee.EmployeeQueryExtension;
+using api.Employee.Model;
+using api.Employee.Repository.Extension;
+using api.Infrastructure.Database;
 using api.utils;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.Repository;
+namespace api.Employee.Repository;
 
 public class EmployeeRepository : IEmployeeRepository
 {
@@ -16,7 +16,7 @@ public class EmployeeRepository : IEmployeeRepository
     }
 
     #region GetEmployees
-    public async Task<List<Employee>> GetEmployees(PaginationParams paginationParams, string? search, EmployeeFilters? filters)
+    public async Task<List<EmployeeModel>> GetEmployees(PaginationParams paginationParams, string? search, EmployeeFilters? filters)
     {
         var query = GetEmployeeQuery();
 
@@ -33,7 +33,7 @@ public class EmployeeRepository : IEmployeeRepository
     }
 
 
-    private IQueryable<Employee> GetEmployeeQuery()
+    private IQueryable<EmployeeModel> GetEmployeeQuery()
     {
         return _context.Employees.Include(e => e.Department)
             .Include(e => e.Site).AsQueryable();
@@ -42,14 +42,14 @@ public class EmployeeRepository : IEmployeeRepository
     #endregion
 
 
-    public async Task<Employee> CreateEmployee(Employee employee)
+    public async Task<EmployeeModel> CreateEmployee(EmployeeModel employee)
     {
         var createdEmploye = await _context.Employees.AddAsync(employee);
         LoadReferences(createdEmploye.Entity);
         await _context.SaveChangesAsync();
         return createdEmploye.Entity;
     }
-    public async Task<Employee> UpdateEmployee(Employee employee)
+    public async Task<EmployeeModel> UpdateEmployee(EmployeeModel employee)
     {
         _context.Employees.Update(employee);
         await _context.SaveChangesAsync();
@@ -57,13 +57,13 @@ public class EmployeeRepository : IEmployeeRepository
         return employee;
     }
 
-    private void LoadReferences(Employee employee)
+    private void LoadReferences(EmployeeModel employee)
     {
         _context.Entry(employee).Reference(e => e.Department).Load();
         _context.Entry(employee).Reference(e => e.Site).Load();
     }
 
-    public async Task<Employee?> GetEmployee(int id)
+    public async Task<EmployeeModel?> GetEmployee(int id)
     {
         return await _context.Employees.Include(e => e.Department).Include(e => e.Site).FirstAsync(e => e.Id == id);
     }
@@ -85,7 +85,7 @@ public class EmployeeRepository : IEmployeeRepository
         return await _context.Employees.CountAsync();
     }
 
-    public async Task LockEmployeeForModification(Employee employee, string lockedBy)
+    public async Task LockEmployeeForModification(EmployeeModel employee, string lockedBy)
     {
         employee.IsLocked = true;
         employee.LockedBy = lockedBy;
@@ -115,7 +115,7 @@ public class EmployeeRepository : IEmployeeRepository
         return employee!.LockedBy!;
     }
 
-    public void Detach(Employee employee)
+    public void Detach(EmployeeModel employee)
     {
         _context.Entry(employee).State = EntityState.Detached;
     }

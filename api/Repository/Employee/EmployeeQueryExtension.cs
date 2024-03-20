@@ -1,9 +1,9 @@
-using api.Model;
+using api.Employee.Model;
 using api.utils;
-namespace api.Repository.employee.EmployeeQueryExtension;
+namespace api.Employee.Repository.Extension;
 public static class EmployeeQueryExtension
 {
-    public static IQueryable<Employee> ApplyFilters(this IQueryable<Employee> query, EmployeeFilters filters)
+    public static IQueryable<EmployeeModel> ApplyFilters(this IQueryable<EmployeeModel> query, EmployeeFilters filters)
     {
         if (filters.DepartmentId.HasValue)
             query = query.Where(e => e.DepartmentId == filters.DepartmentId);
@@ -11,12 +11,12 @@ public static class EmployeeQueryExtension
             query = query.Where(e => e.SiteId == filters.SiteId);
         return query;
     }
-    public static IQueryable<Employee> ApplyPagination(this IQueryable<Employee> query, PaginationParams paginationParams)
+    public static IQueryable<EmployeeModel> ApplyPagination(this IQueryable<EmployeeModel> query, PaginationParams paginationParams)
     {
         return query.Skip(paginationParams.GetOffset()).Take(paginationParams.GetLimit());
     }
 
-    public static IQueryable<Employee> ApplySearch(this IQueryable<Employee> query, string search)
+    public static IQueryable<EmployeeModel> ApplySearch(this IQueryable<EmployeeModel> query, string search)
     {
         return query.Where(e => e.Firstname.Contains(search) || e.Lastname.Contains(search) || e.Department.Name.Contains(search) || e.Site.City.Contains(search));
     }

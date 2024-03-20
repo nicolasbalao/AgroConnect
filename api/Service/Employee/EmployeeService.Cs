@@ -1,11 +1,13 @@
-using api.CustomException;
-using api.Mappers;
-using api.Model;
-using api.Repository;
+using api.Department.Repository;
+using api.Employee.Mapper;
+using api.Employee.Model;
+using api.Employee.Repository;
+using api.Framework.Exception;
+using api.Site.Repository;
 using api.utils;
 using Contracts.Dtos;
 
-namespace api.Services;
+namespace api.Employee.Service;
 
 public class EmployeeService : IEmployeeService
 {
@@ -113,7 +115,7 @@ public class EmployeeService : IEmployeeService
         await _employeeRepository.LockEmployeeForModification(employee, lockedBy);
     }
 
-    private bool IsPreviousLockExpired(Employee employee)
+    private bool IsPreviousLockExpired(EmployeeModel employee)
     {
         var lockTimeout = _configuration.GetSection("Env").GetValue<int>("LockTimeoutMinute");
 

@@ -1,6 +1,6 @@
-namespace api.CustomException
+namespace api.Framework.Exception
 {
-    public class NotFoundExecption : Exception
+    public class NotFoundExecption : System.Exception
     {
         public NotFoundExecption(string message) : base(message)
         {

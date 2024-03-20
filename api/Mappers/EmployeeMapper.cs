@@ -1,12 +1,14 @@
-using api.Model;
+using api.Department.Mapper;
+using api.Employee.Model;
+using api.Mappers;
 using Contracts.Dtos;
 
-namespace api.Mappers;
+namespace api.Employee.Mapper;
 
 public static class EmployeeMapper
 {
 
-    public static EmployeeDto ToDto(this Employee employee)
+    public static EmployeeDto ToDto(this EmployeeModel employee)
     {
         return new EmployeeDto
         {
@@ -22,9 +24,9 @@ public static class EmployeeMapper
         };
     }
 
-    public static Employee ToEmployee(this CreateEmployeeDto createEmployeeDto)
+    public static EmployeeModel ToEmployee(this CreateEmployeeDto createEmployeeDto)
     {
-        return new Employee
+        return new EmployeeModel
         {
             Firstname = createEmployeeDto.Firstname,
             Lastname = createEmployeeDto.Lastname,
@@ -36,9 +38,9 @@ public static class EmployeeMapper
         };
     }
 
-    public static Employee ToEmployee(this UpdateEmployeeDto updateEmployeeDto)
+    public static EmployeeModel ToEmployee(this UpdateEmployeeDto updateEmployeeDto)
     {
-        return new Employee
+        return new EmployeeModel
         {
             Id = updateEmployeeDto.Id,
             Firstname = updateEmployeeDto.Firstname,

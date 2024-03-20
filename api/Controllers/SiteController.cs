@@ -1,9 +1,9 @@
-using api.Filters;
-using api.Services;
+using api.Admin.Filters;
+using api.Site.Service;
 using Contracts.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace api.Controllers;
+namespace api.Site.Controller;
 
 [ApiController]
 [Route("api/v1/[controller]s")]

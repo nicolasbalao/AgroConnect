@@ -1,6 +1,6 @@
 using Contracts.Dtos;
 
-namespace api.Services;
+namespace api.Department.Service;
 
 public interface IDepartmentService
 {

@@ -1,8 +1,8 @@
-using api.database;
-using api.Model;
+using api.Infrastructure.Database;
+using api.Site.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.Repository;
+namespace api.Site.Repository;
 
 public class SiteRepository : ISiteRepository
 {
@@ -15,24 +15,24 @@ public class SiteRepository : ISiteRepository
 
 
 
-    public Task<List<Site>> GetSites()
+    public Task<List<SiteModel>> GetSites()
     {
         return _context.Sites.ToListAsync();
     }
 
-    public async Task<Site> CreateSite(Site site)
+    public async Task<SiteModel> CreateSite(SiteModel site)
     {
         var siteCreated = await _context.Sites.AddAsync(site);
         await _context.SaveChangesAsync();
         return siteCreated.Entity;
     }
 
-    public Task<Site?> GetSite(int id)
+    public Task<SiteModel?> GetSite(int id)
     {
         return _context.Sites.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<Site> UpdateSite(Site site)
+    public async Task<SiteModel> UpdateSite(SiteModel site)
     {
         var updatedSite = _context.Sites.Update(site);
         await _context.SaveChangesAsync();

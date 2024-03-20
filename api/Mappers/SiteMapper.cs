@@ -1,11 +1,11 @@
-using api.Model;
+using api.Site.Model;
 using Contracts.Dtos;
 namespace api.Mappers;
 
 public static class SiteMapper
 {
 
-    public static SiteDto ToDto(this Site site)
+    public static SiteDto ToDto(this SiteModel site)
     {
         return new SiteDto
         {
@@ -14,17 +14,17 @@ public static class SiteMapper
         };
     }
 
-    public static Site ToSite(this CreateSiteDto createSiteDto)
+    public static SiteModel ToSite(this CreateSiteDto createSiteDto)
     {
-        return new Site
+        return new SiteModel
         {
             City = createSiteDto.City
         };
     }
 
-    public static Site ToSite(this UpdateSiteDto updateSiteDto)
+    public static SiteModel ToSite(this UpdateSiteDto updateSiteDto)
     {
-        return new Site
+        return new SiteModel
         {
             Id = updateSiteDto.Id,
             City = updateSiteDto.City

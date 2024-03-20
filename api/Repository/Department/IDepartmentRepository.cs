@@ -1,13 +1,13 @@
-using api.Model;
+using api.Department.Model;
 
-namespace api.Repository;
+namespace api.Department.Repository;
 
 public interface IDepartmentRepository
 {
-    Task<List<Department>> GetDepartment();
-    Task<Department?> GetDepartment(int id);
-    Task<Department> CreateDepartment(Department department);
-    Task<Department> UpdateDepartment(Department department);
+    Task<List<DepartmentModel>> GetDepartment();
+    Task<DepartmentModel?> GetDepartment(int id);
+    Task<DepartmentModel> CreateDepartment(DepartmentModel department);
+    Task<DepartmentModel> UpdateDepartment(DepartmentModel department);
     Task<bool> DeleteDepartment(int id);
     Task<bool> DepartmentHaveEmployees(int id);
 

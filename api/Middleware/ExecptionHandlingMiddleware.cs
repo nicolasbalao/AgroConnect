@@ -1,8 +1,8 @@
 using System.Net;
 using System.Text.Json;
-using api.CustomException;
+using api.Framework.Exception;
 
-namespace cube4api.Middleware;
+namespace api.Infrastructure.Middleware;
 
 public class ExecptionMiddleware
 {
@@ -21,13 +21,13 @@ public class ExecptionMiddleware
         {
             await _next(context);
         }
-        catch (Exception ex)
+        catch (System.Exception ex)
         {
             await HandleExceptionAsync(context, ex);
         }
     }
 
-    private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+    private static Task HandleExceptionAsync(HttpContext context, System.Exception exception)
     {
         HttpStatusCode status;
         string message;

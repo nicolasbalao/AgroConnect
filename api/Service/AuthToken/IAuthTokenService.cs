@@ -1,4 +1,4 @@
-namespace api.Services;
+namespace api.Admin.Services;
 
 public interface IAuthTokenService
 {

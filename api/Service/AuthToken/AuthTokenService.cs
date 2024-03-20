@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace api.Services;
+namespace api.Admin.Services;
 
 public class Payload
 {

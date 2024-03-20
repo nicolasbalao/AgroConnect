@@ -1,6 +1,6 @@
 using Contracts.Dtos;
 
-namespace api.Services;
+namespace api.Site.Service;
 
 public interface ISiteService
 {

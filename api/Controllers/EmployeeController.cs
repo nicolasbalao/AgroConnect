@@ -1,12 +1,13 @@
 
-using api.CustomException;
-using api.Filters;
+using api.Admin.Filters;
+using api.Employee.Service;
+using api.Framework.Exception;
 using api.Services;
 using api.utils;
 using Contracts.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace api.Controllers;
+namespace api.Employee.Controller;
 
 [ApiController]
 [Route("api/v1/[controller]s")]

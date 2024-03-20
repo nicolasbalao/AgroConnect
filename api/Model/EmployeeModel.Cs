@@ -1,9 +1,11 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
+using api.Department.Model;
+using api.Model;
 
-namespace api.Model;
+namespace api.Employee.Model;
 
-public class Employee : BaseModel
+public class EmployeeModel : BaseModel
 {
     public string Firstname { get; set; } = string.Empty;
     public string Lastname { get; set; } = string.Empty;
@@ -25,7 +27,7 @@ public class Employee : BaseModel
     [ForeignKey(nameof(Department))]
     public int DepartmentId { get; set; }
 
-    public virtual Department? Department { get; set; }
+    public virtual DepartmentModel? Department { get; set; }
 
     [ForeignKey(nameof(Site))]
     public int SiteId { get; set; }

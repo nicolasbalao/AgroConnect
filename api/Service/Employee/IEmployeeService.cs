@@ -1,7 +1,7 @@
 using api.utils;
 using Contracts.Dtos;
 
-namespace api.Services
+namespace api.Employee.Service
 {
     public interface IEmployeeService
     {

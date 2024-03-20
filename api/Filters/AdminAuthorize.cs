@@ -1,10 +1,8 @@
-using System.Text;
-using api.Services;
 using Microsoft.AspNetCore.Mvc.Filters;
-using api.CustomException;
 using Microsoft.AspNetCore.Mvc;
+using api.Admin.Services;
 
-namespace api.Filters;
+namespace api.Admin.Filters;
 
 public class AdminAuthorize : Attribute, IAuthorizationFilter
 {
