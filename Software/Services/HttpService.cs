@@ -74,14 +74,14 @@ namespace Software.Services
             throw new Exception(response.ReasonPhrase);
         }
 
-        public static async Task<TResponse> Delete<TResponse>(string url)
+        public static async Task<bool> Delete(string url)
         {
 
             SetAuthorizationHeaderIfNeeded();
             var response = await Client.DeleteAsync(url);
             if (response.IsSuccessStatusCode)
             {
-                return await HandleSuccessfulResponse<TResponse>(response, url);
+                return true;
             }
 
             throw new Exception(response.ReasonPhrase);

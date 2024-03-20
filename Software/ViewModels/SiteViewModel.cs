@@ -33,7 +33,7 @@ namespace Software.ViewModels
         {
             try
             {
-                await HttpService.Delete<bool>($"sites/{id}");
+                await HttpService.Delete($"sites/{id}");
 
             }catch (Exception ex)
             {

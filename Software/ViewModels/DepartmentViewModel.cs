@@ -27,7 +27,7 @@ namespace Software.ViewModels
         {
             try
             {
-                await HttpService.Delete<bool>($"departments/{id}");
+                await HttpService.Delete($"departments/{id}");
             }catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
