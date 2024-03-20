@@ -139,7 +139,7 @@ namespace Software.ViewModels
 
             try
             {
-                await HttpService.Delete<bool>($"employees/{id}");
+                await HttpService.Delete($"employees/{id}");
 
             }
             catch (Exception ex)
