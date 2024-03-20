@@ -23,11 +23,26 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" Grid.Column="0" >
-            <Button Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigationService.NavigateCommand}" CommandParameter="Sites" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" >Sites</Button>
-            <Button Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigationService.NavigateCommand}" CommandParameter="Departments" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" >Departments</Button>
-            <Button Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigationService.NavigateCommand}" CommandParameter="Employees" >Employee</Button>
-        </StackPanel>
+        <Grid Background="{StaticResource  MaterialDesignLightSeparatorBackground}">
+
+            <StackPanel Orientation="Vertical" Grid.Column="0" >
+                <Button FontSize="20" Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigationService.NavigateCommand}" CommandParameter="Sites" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" >Sites</Button>
+                <Button  FontSize="20" Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigationService.NavigateCommand}" CommandParameter="Departments" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" >Services</Button>
+                <Button  FontSize="20" Margin="5" Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{Binding NavigationService.NavigateCommand}" CommandParameter="Employees" >Employés</Button>
+            </StackPanel>
+        </Grid>
+
+        <!--<Grid Width="200" Background="{DynamicResource PrimaryMid}">
+            <StackPanel Margin="10">
+                <Button Content="Home" Style="{DynamicResource MaterialDesignFlatButton}" Margin="0,5"/>
+                <Button Content="Settings" Style="{DynamicResource MaterialDesignFlatButton}" Margin="0,5"/>
+                <Button Content="About" Style="{DynamicResource MaterialDesignFlatButton}" Margin="0,5"/>
+                -->
+        <!-- Add more buttons or controls as needed -->
+        <!--
+            </StackPanel>
+        </Grid>-->
+
 
 
         <Grid Grid.Column="1">

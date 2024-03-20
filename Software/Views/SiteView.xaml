@@ -14,7 +14,7 @@
 
  
 
-    <Grid Margin="50 0 50 0">
+    <Grid Margin="50 0 50 0" VerticalAlignment="Center" HorizontalAlignment="center"> 
 
         <DataGrid ItemsSource="{Binding Sites}" AutoGenerateColumns="False" CanUserAddRows="True" CellEditEnding="DataGrid_CellEditEnding" BorderThickness="1">
             <DataGrid.Columns>
@@ -22,7 +22,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete" Command="{Binding DataContext.DeleteSite, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Id}">
+                            <Button Content="Supprimer" Command="{Binding DataContext.DeleteSite, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Id}">
                                 <!-- Apply material design style -->
                                 <Button.Style>
                                     <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
