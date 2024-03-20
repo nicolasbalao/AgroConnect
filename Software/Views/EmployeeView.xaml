@@ -57,7 +57,7 @@
                     <DataGridTextColumn Header="Nom" Binding="{Binding Lastname}" Width="*"/>
                     <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
                     <DataGridTextColumn Header="Telephone portable" Binding="{Binding CellPhone}" Width="*"/>
-                    <DataGridTextColumn Header="Telephone fix" Binding="{Binding HomePhone}" Width="*"/>
+                    <DataGridTextColumn Header="Telephone fixe" Binding="{Binding HomePhone}" Width="*"/>
                     <DataGridTextColumn Header="Service" Binding="{Binding Department.Name}" Width="*"/>
                     <DataGridTextColumn Header="Site" Binding="{Binding Site.City}" Width="*"/>
                     <DataGridCheckBoxColumn Header="Verrouillé" Binding="{Binding IsLocked}" Width="*"/>
