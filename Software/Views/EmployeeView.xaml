@@ -44,7 +44,7 @@
 
             </Grid>
 
-            <Button Command="{Binding CreateEmployeeCMD}" Visibility="{Binding GlobalState.IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right" Margin="0 10 0 0">New</Button>
+            <Button Command="{Binding CreateEmployeeCMD}" Visibility="{Binding GlobalState.IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right" Margin="0 10 0 0" Style="{StaticResource MaterialDesignRaisedButton }">Ajouter</Button>
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}">Employés:</TextBlock>
