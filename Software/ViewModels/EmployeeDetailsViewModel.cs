@@ -120,10 +120,10 @@ namespace Software.ViewModels
             }
             catch (Exception ex)
             {
-                if(ex.Message == "Conflict")
+                if (ex.Message == "Conflict")
                 {
                     MessageBox.Show("L'employée est en cours de modification par un autre administrateur");
-                        return;
+                    return;
 
                 }
                 MessageBox.Show(ex.Message);
