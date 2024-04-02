@@ -5,7 +5,7 @@ namespace api.Employee.Repository;
 
 public interface IEmployeeRepository
 {
-    Task<List<EmployeeModel>> GetEmployees(PaginationParams paginationParams, string? search, EmployeeFilters? filters);
+    Task<(List<EmployeeModel>, int)> GetEmployees(PaginationParams paginationParams, string? search, EmployeeFilters? filters);
 
     Task<EmployeeModel?> GetEmployee(int id);
     Task<EmployeeModel> CreateEmployee(EmployeeModel employee);
