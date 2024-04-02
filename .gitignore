@@ -26,3 +26,5 @@ _ReSharper*
 # Ignore Visual Studio Code files
 .vscode/
 api/appsettings.Development.json
+Contracts/obj/Debug/net8.0/Contracts.assets.cache
+Contracts/obj/Debug/net8.0/Contracts.GeneratedMSBuildEditorConfig.editorconfig
