@@ -16,7 +16,7 @@ public class EmployeeRepository : IEmployeeRepository
     }
 
     #region GetEmployees
-    public async Task<List<Employee>> GetEmployees(PaginationParams paginationParams, string? search, EmployeeFilters? filters)
+    public async Task<(List<Employee>, int)> GetEmployees(PaginationParams paginationParams, string? search, EmployeeFilters? filters)
     {
         var query = GetEmployeeQuery();
 
@@ -28,8 +28,12 @@ public class EmployeeRepository : IEmployeeRepository
             query = query.ApplySearch(search);
         }
 
+        var totalItems = await query.CountAsync();
+        var employees = await query.ApplyPagination(paginationParams).ToListAsync();
 
-        return await query.ApplyPagination(paginationParams).ToListAsync();
+
+
+        return (employees, totalItems);
     }
 
 

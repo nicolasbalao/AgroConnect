@@ -26,9 +26,8 @@ public class EmployeeService : IEmployeeService
     {
 
 
-        var employees = await _employeeRepository.GetEmployees(paginationParams, search, filters);
+        var (employees, totalItems) = await _employeeRepository.GetEmployees(paginationParams, search, filters);
 
-        int totalItems = await _employeeRepository.EmployeeCount();
 
         var employeeDtos = employees.Select(e => e.ToDto()).ToList();
 
